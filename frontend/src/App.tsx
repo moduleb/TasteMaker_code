@@ -2,14 +2,12 @@ import { Route, Routes } from "react-router-dom"
 import { HomePage } from "./pages/Homepage"
 import { NotFoundPage } from "./pages/NotFoundPage"
 import { Layout } from "./components/Layout"
-import { RegisterPage } from "./pages/RegisterPage";
-import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage"
+import { LoginPage } from "./pages/LoginPage"
 
 function App() {
-
   return (
     <>
-
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
