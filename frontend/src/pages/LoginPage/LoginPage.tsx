@@ -1,4 +1,4 @@
-import { CustomLink } from "../components/CustomLink"
+import { CustomLink } from "../../components/CustomLink/CustomLink"
 
 export const LoginPage = () => {
   return (

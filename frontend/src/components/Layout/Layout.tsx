@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { CustomLink } from "./CustomLink"
+import { CustomLink } from "../CustomLink/CustomLink"
 
 export const Layout = () => {
   return (
