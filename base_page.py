@@ -22,13 +22,15 @@ class BasePage():
         if self.is_element_present(locator_type,locator):
             self.browser.find_element(self,locator_type, locator).click()
     
-    
+        
     def enter_text(self,locator_type,locator,text):
         if self.is_element_present(locator_type,locator):
             element=self.browser.find_element(locator_type, locator)
             element.clear()
             element.send_keys(text)
 
+    def quite_browser(self):
+        self.browser.quite()
 
 
 
