@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom"
-import { CustomLink } from "../CustomLink/CustomLink"
+import s from "./Layout.module.css"
+import { Header } from "../Header/Header.tsx"
 
 export const Layout = () => {
   return (
-    <>
-      <header>
-        <CustomLink to="/">Главная</CustomLink>
-        <CustomLink to="/registration">регистрация</CustomLink>
-        <CustomLink to="/login">логин</CustomLink>
-      </header>
-      <Outlet />
-      <footer>footer 2024</footer>
-    </>
+    <div className={s.App}>
+      <Header />
+      <div className={s.content}>
+        <Outlet />
+      </div>
+      <footer className={s.footer}>Copyrighting Tastemaker 2024</footer>
+    </div>
   )
 }

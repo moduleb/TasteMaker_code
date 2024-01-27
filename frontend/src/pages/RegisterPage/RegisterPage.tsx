@@ -1,10 +1,13 @@
-import { CustomLink } from "../../components/CustomLink/CustomLink"
-
+import { CustomForm } from "../../components/Form/CustomForm.tsx"
 export const RegisterPage = () => {
+  const onRegister = (email: string, pass: string) => {}
   return (
     <>
-      <h1>Регистрация</h1>
-      <p>или {<CustomLink to="/login">залогинься</CustomLink>}</p>
+      <CustomForm
+        title="Главная/Регистрация"
+        btnText="Зарегистрироваться"
+        handleClick={onRegister}
+      />
     </>
   )
 }
