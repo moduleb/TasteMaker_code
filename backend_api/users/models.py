@@ -1,3 +1,4 @@
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
@@ -41,7 +42,10 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    login = models.CharField(max_length=30)
+    password = models.CharField(max_length=64, validators=[MaxLengthValidator(limit_value=64),
+                                                           MinLengthValidator(limit_value=8)])
+    login = models.CharField(max_length=100, validators=[MinLengthValidator(limit_value=3),
+                                                         MaxLengthValidator(limit_value=100)])
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     last_login = None
