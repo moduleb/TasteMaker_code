@@ -3,9 +3,10 @@ from selenium.webdriver.common.by import By
 from .locators import RegistrationPageLocators
 from .variables import RegistrationPageVariables
 from selenium.webdriver.support import expected_conditions as EC
+from .locators import AuthorizationPageLocators
 
 class RegistrationPage(BasePage):
-    def fill_login(self ,login):
+    def fill_login(self ,login_text):
     
         login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{RegistrationPageVariables.LOGIN}")
 
@@ -15,7 +16,7 @@ class RegistrationPage(BasePage):
 
         assert login_value==RegistrationPageVariables.LOGIN, f"Registration is shown like {login_value}, but must be {RegistrationPageVariables.LOGIN}"
 
-    def fill_password(self):
+    def fill_password(self,password_text):
     
         
 
@@ -35,8 +36,8 @@ class RegistrationPage(BasePage):
     def check_it_is_auth_page(self):
 
         element = self.WebDriverWait(self.driver, 10).until(
-    EC.visibility_of_element_located((By.ID, 'example_element'))
-)
+    EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
+
 
 
         current_url=self.driver.current_url()

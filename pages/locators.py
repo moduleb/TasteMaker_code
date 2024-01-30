@@ -7,7 +7,7 @@ class RegistrationPageLocators():
     LOGO=(By.CSS_SELECTOR,"")
     RETURN_TO_AUTH=(By.CSS_SELECTOR,"")
 
-class LoginPageLocators():
+class AuthorizationPageLocators():
     BUTTON=(By.CSS_SELECTOR,"")
     LOGIN=(By.CSS_SELECTOR,"")
     PASSWORD=(By.CSS_SELECTOR,"")
