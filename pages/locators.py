@@ -6,6 +6,8 @@ class RegistrationPageLocators():
     PASSWORD=(By.CSS_SELECTOR,"")
     LOGO=(By.CSS_SELECTOR,"")
     RETURN_TO_AUTH=(By.CSS_SELECTOR,"")
+    WARNING=(By.CSS_SELECTOR,"")
+
 
 class AuthorizationPageLocators():
     BUTTON=(By.CSS_SELECTOR,"")

@@ -18,8 +18,7 @@ class RegistrationPage(BasePage):
 
     def fill_password(self,password_text):
     
-        
-
+    
         password=self.enter_text(*RegistrationPageLocators.PASSWORD,f"{RegistrationPageVariables.PASSWORD}")
 
         password=self.is_element_present(*RegistrationPageLocators.PASSWORD)
@@ -33,15 +32,24 @@ class RegistrationPage(BasePage):
         button=self.click_element(*RegistrationPageLocators.BUTTON)
 
 
-    def check_it_is_auth_page(self):
+    def check_is_it_auth_page(self):
 
-        element = self.WebDriverWait(self.driver, 10).until(
+        auth_button = self.WebDriverWait(self.driver, 10).until(
     EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
-
-
 
         current_url=self.driver.current_url()
 
         assert "authorization" in current_url, f"Expected 'authorization' in URL, but got: {current_url}"
-        
+
+
+    def check_login_password_warnings(self):
+
+        warning=self.is_element_present(*RegistrationPageLocators.WARNING)
+
+        warning_value=warning.value()
+
+        assert "Error message" in warning_value, f"Expected Error message in warning, but got {warning_value}"
+
+
+
 
