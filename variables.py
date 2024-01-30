@@ -1,3 +1,0 @@
-class LoginPageVariables():
-    LOGIN=""
-    PASSWORD=""
