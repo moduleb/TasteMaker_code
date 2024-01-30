@@ -86,8 +86,6 @@
 
 ---
 
----
-
 <a name="check-access_token"></a>
 
 ## Проверка access-токена
@@ -114,6 +112,7 @@
 
 * `400 Bad Request` – ошибка в параметрах запроса.
 * `401 Unauthorized` - недействительный токен.
+
 ---
 
 <a name="use-access_token"></a>
