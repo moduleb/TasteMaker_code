@@ -6,9 +6,9 @@ from .models import User
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('login',
+        fields = ('email',
                   'password',
-                  'email',)
+                  )
 
     def create(self, validated_data):
         password = validated_data.pop("password")
