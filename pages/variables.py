@@ -1,3 +1,5 @@
-class LoginPageVariables():
+
+
+class RegistrationPageVariables():
     LOGIN=""
     PASSWORD=""
