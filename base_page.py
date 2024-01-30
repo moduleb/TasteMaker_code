@@ -16,10 +16,12 @@ class BasePage():
         except NoSuchElementException:
             print (f"there are not {locator} in {locator_type}")
             return False
-        return True
+        return self.browser.find_element(locator_type,locator)
     
     def click_element (self,locator_type, locator):
+
         if self.is_element_present(locator_type,locator):
+            
             self.browser.find_element(self,locator_type, locator).click()
     
         
