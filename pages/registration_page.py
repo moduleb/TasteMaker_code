@@ -8,24 +8,24 @@ from .locators import AuthorizationPageLocators
 class RegistrationPage(BasePage):
     def fill_login(self ,login_text):
     
-        login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{RegistrationPageVariables.LOGIN}")
+        login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{login_text}")
 
         login=self.is_element_present(*RegistrationPageLocators.LOGIN)
 
         login_value=login.getattribute('value')
 
-        assert login_value==RegistrationPageVariables.LOGIN, f"Registration is shown like {login_value}, but must be {RegistrationPageVariables.LOGIN}"
+        assert login_value==login_text, f"Registration is shown like {login_value}, but must be {login_text}"
 
     def fill_password(self,password_text):
     
     
-        password=self.enter_text(*RegistrationPageLocators.PASSWORD,f"{RegistrationPageVariables.PASSWORD}")
+        password=self.enter_text(*RegistrationPageLocators.PASSWORD,f"{password_text}")
 
         password=self.is_element_present(*RegistrationPageLocators.PASSWORD)
 
         password_value=password.getattribute('value')
 
-        assert password_value==RegistrationPageVariables.PASSWORD, f"password is shown like {password_value}, but must be {RegistrationPageVariables.PASSWORD}"
+        assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
     def click_registration_button(self):
 
