@@ -39,7 +39,9 @@ class RegistrationPage(BasePage):
 
         current_url=self.driver.current_url()
 
-        assert "authorization" in current_url, f"Expected 'authorization' in URL, but got: {current_url}"
+        key_word="authorization"
+
+        assert key_word in current_url, f"Expected {key_word} in URL, but got: {current_url}"
 
 
     def check_login_password_warnings(self):
@@ -47,6 +49,8 @@ class RegistrationPage(BasePage):
         warning=self.is_element_present(*RegistrationPageLocators.WARNING)
 
         warning_value=warning.value()
+        
+        
 
         assert "Error message" in warning_value, f"Expected Error message in warning, but got {warning_value}"
 
