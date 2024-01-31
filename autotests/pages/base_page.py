@@ -16,13 +16,12 @@ class BasePage():
         except NoSuchElementException:
             print (f"there are not {locator} in {locator_type}")
             return False
-        return self.browser.find_element(locator_type,locator)
+        return True
     
-    def click_element (self,locator_type, locator):
+    def click_element(self, locator_type, locator):
+        if self.is_element_present(locator_type, locator):
+            self.browser.find_element(locator_type, locator).click()
 
-        if self.is_element_present(locator_type,locator):
-            
-            self.browser.find_element(self,locator_type, locator).click()
     
         
     def enter_text(self,locator_type,locator,text):
@@ -31,8 +30,9 @@ class BasePage():
             element.clear()
             element.send_keys(text)
 
-    def quite_browser(self):
-        self.browser.quite()
+    def quit_browser(self):
+        self.browser.quit()
+
 
 
 

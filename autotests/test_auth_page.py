@@ -9,7 +9,7 @@ from .pages.variables import correct_data, incorrect_data
 
 link='example_link'
 
-@pytest.mark.parametrize('link',link)
+@pytest.mark.parametrize('link',[link])
 def test_authorization_with_existing_login_and_password(browser,link):
     page=AuthorizationPage(browser,link)
     page.open()
