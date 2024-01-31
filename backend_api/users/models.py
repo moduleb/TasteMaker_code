@@ -37,7 +37,7 @@ class MyUserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name="email address",
-        max_length=255,
+        max_length=100,
         unique=True,
     )
     password = models.CharField(max_length=64, validators=[MaxLengthValidator(limit_value=64),
