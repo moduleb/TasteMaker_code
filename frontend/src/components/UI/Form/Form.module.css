@@ -1,0 +1,41 @@
+.form {
+    border: 1px solid #4e4e4e;
+    border-radius: 8px;
+}
+
+.formTitle {
+    font-family: Inter, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 24px;
+    background-color: #F5F5F5;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    padding-left: 20px;
+    margin: 0 0 20px;
+}
+
+.formContent {
+    padding-left: 21px;
+    padding-right: 21px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input {
+    padding: 13px 18px;
+    font-size: 22px;
+    line-height: 24px;
+    color: #4e4e4e;
+
+}
+
+.inputEmail {
+
+}
+
+.inputPassword {
+
+}

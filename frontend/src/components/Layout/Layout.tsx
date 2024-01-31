@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom"
 import s from "./Layout.module.css"
 import { Header } from "../Header/Header.tsx"
+import { Footer } from "../Footer/Footer.tsx"
+import { Container } from "../UI/Container/Container.tsx"
 
 export const Layout = () => {
   return (
     <div className={s.App}>
       <Header />
       <div className={s.content}>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </div>
-      <footer className={s.footer}>Copyrighting Tastemaker 2024</footer>
+      <Footer />
     </div>
   )
 }
