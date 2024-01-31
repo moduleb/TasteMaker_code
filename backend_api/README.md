@@ -134,8 +134,7 @@
 ---
 
 <a name="use-refresh_token"></a>
-## Обновление пары access и refresh токенов
-
+## Использование refresh токена
 
 ```
 `POST http://127.0.0.1:8000/api/token/refresh`
