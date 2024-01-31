@@ -28,7 +28,6 @@
 
 ```json
 {
-  "login": "string",
   "password": "string",
   "email": "user@example.com"
 }
@@ -40,7 +39,6 @@
 
 ```json
 {
-  "login": "string",
   "password": "pbkdf2_sha256$720000$7mIMfGeEUYHZVAZrO6vkOh$Jx/pM7ZBYzrLF3AuUAFRztl30BvVnOeh5xoazC8Ir+0=",
   "email": "user@example.com"
 }
@@ -129,7 +127,7 @@
 ## Время жизни токенов
 
 `access-токен` имеет срок жизни `5 минут` и при его истечении необходимо сделать запрос с `refresh_token` для получения
-новой пары токенов.  
+нового access токена.  
 
 `refresh-токен` имеет срок жизни `24 часа`.
 
@@ -153,21 +151,11 @@
 
 ### Ответ
 
-Ответ будет идентичен ответу на получение токенов в [первый раз](#get-access_token):
-
 ```json
 {
-  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNjQyNjQ2NiwiaWF0IjoxNzA2MzQwMDY2LCJqdGkiOiJiYzZhYTAyNzQ1YmE0ZjczODFkOGY4MzNmOWZmMzUwYiIsInVzZXJfaWQiOjJ9.1qGtt-ial3F5vH2nmOZhwk2DQcvZPWwxyW7IceMbo20",
   "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MzQwMzY2LCJpYXQiOjE3MDYzNDAwNjYsImp0aSI6IjAzNmRhN2VkNTVjNTQ0YmU5MGY2ODhjYjcxM2FhOGVhIiwidXNlcl9pZCI6Mn0.QYt_JOm20yXTP7bfpzdbMGn3ddsYzPgOaLDx_34p7nE"
 }
 ```
-
-`refresh_token` можно использовать только один раз и только по истечению
-срока действия `access_token`.
-
-После получения новой пары access и refresh токенов, их необходимо использовать
-в дальнейших запросах в api и запросах на продление токена.
-
 
 #### Ошибки
 
