@@ -12,7 +12,7 @@ class RegistrationPage(BasePage):
 
         login=self.is_element_present(*RegistrationPageLocators.LOGIN)
 
-        login_value=login.getattribute('value')
+        login_value = login.get_attribute('value')
 
         assert login_value==login_text, f"Registration is shown like {login_value}, but must be {login_text}"
 
@@ -23,7 +23,7 @@ class RegistrationPage(BasePage):
 
         password=self.is_element_present(*RegistrationPageLocators.PASSWORD)
 
-        password_value=password.getattribute('value')
+        password_value = password.get_attribute('value')
 
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
@@ -34,7 +34,7 @@ class RegistrationPage(BasePage):
 
     def check_is_it_auth_page(self):
 
-        auth_button = self.WebDriverWait(self.driver, 10).until(
+        auth_button = self.WebDriverWait(self.browser, 10).until(
     EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
 
         current_url=self.driver.current_url()
