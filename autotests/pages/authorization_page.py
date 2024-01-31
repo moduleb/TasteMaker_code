@@ -48,6 +48,6 @@ class AuthorizationPage(BasePage):
 
         warning_value=warning.value()
         
-        
+        key_word="Неправильный логин или пароль"
 
-        assert "Error message" in warning_value, f"Expected Error message in warning, but got {warning_value}"
+        assert key_word in warning_value, f"Expected {key_word} in warning, but got {warning_value}"
