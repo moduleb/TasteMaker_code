@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, login, password=None):
+    def create_user(self, email, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -14,14 +14,13 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            login=login,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, login, password=None):
+    def create_superuser(self, email, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
@@ -29,7 +28,6 @@ class MyUserManager(BaseUserManager):
         user = self.create_user(
             email,
             password=password,
-            login=login,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -39,13 +37,11 @@ class MyUserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name="email address",
-        max_length=255,
+        max_length=100,
         unique=True,
     )
     password = models.CharField(max_length=64, validators=[MaxLengthValidator(limit_value=64),
                                                            MinLengthValidator(limit_value=8)])
-    login = models.CharField(max_length=100, validators=[MinLengthValidator(limit_value=3),
-                                                         MaxLengthValidator(limit_value=100)])
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     last_login = None
@@ -53,7 +49,7 @@ class User(AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["login"]
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
