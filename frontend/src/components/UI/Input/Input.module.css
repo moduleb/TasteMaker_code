@@ -1,0 +1,21 @@
+.label {
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+}
+.icon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.input {
+    width: 100%;
+    font-size: 22px;
+    line-height: 24px;
+    padding: 11px 18px;
+    border-radius: 10px;
+    border: 1px solid #4E4E4E;
+    color: #4E4E4E;
+}

@@ -1,5 +1,5 @@
 import s from "./Footer.module.css"
-import copy from "../../assets/copyright.png"
+import copy from "../../assets/icons/copyright.png"
 export const Footer = () => {
   return (
     <footer className={s.footer}>

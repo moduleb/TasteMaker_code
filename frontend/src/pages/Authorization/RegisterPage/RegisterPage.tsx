@@ -22,7 +22,12 @@ export const RegisterPage = () => {
           value={email}
           placeholder="Email"
         />
-        <Input type="password" handler={setPass} value={pass} />
+        <Input
+          type="password"
+          handler={setPass}
+          value={pass}
+          placeholder="Пароль"
+        />
         <Button type="submit">Зарегистрироваться</Button>
       </Form>
     </>

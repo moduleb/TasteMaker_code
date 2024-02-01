@@ -3,3 +3,26 @@
     padding-bottom: 70px;
     margin: 0 auto;
 }
+.form h2{
+    margin-bottom: 50px;
+}
+.form label {
+    margin-bottom: 30px;
+}
+.form button {
+    margin-top: 14px;
+    margin-bottom: 50px;
+}
+.form p {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.form a {
+    color: #000000;
+    font-family: Inter, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    text-decoration: underline;
+}
