@@ -86,11 +86,12 @@ class BasePage():
             element.send_keys(text)
 
     def fill_login_base(self ,page, login_text):
-        """fill text in login  field
+        """fill login and checks its value in different pages
 
         Args:
-            login_text (str): text which will be pasted in the field
-        """ 
+            page (str): registration or authorization page to choose locators
+            login_text (text): text to fill in field
+        """        
         if "reg" in page:
             page_locator= RegistrationPageLocators.LOGIN
         if "auth" in page:
