@@ -15,9 +15,9 @@ class RecipeModelViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
-    @swagger_auto_schema(auto_schema=None)
-    def partial_update(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # @swagger_auto_schema(auto_schema=None)
+    # def partial_update(self, request, *args, **kwargs):
+    #     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def get_permissions(self):
         """Установка разных уровней доступа для методов"""
