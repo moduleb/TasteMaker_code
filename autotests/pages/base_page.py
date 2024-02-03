@@ -96,7 +96,7 @@ class BasePage():
         if "auth" in page:
             page_locator=AuthorizationPageLocators.LOGIN
             
-        assert "logi" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
+        assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
 
         login=self.enter_text(*page_locator,f"{login_text}")
 
@@ -105,6 +105,29 @@ class BasePage():
         login_value = login.get_attribute('value')
 
         assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
+
+    def fill_password_base(self ,page, password_text):
+        """fill password in field
+          and checks it's value on different pages
+
+        Args:
+            page (str): registration or authorization page to choose locators
+            password_text (text): text to fill in field
+        """       
+        if "reg" in page:
+            page_locator= RegistrationPageLocators.PASSWORD
+        if "auth" in page:
+            page_locator=AuthorizationPageLocators.PASSWORD
+            
+        assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
+
+        password=self.enter_text(*page_locator,f"{password_text}")
+
+        password=self.browser.find_element(*page_locator)
+
+        password_value = password.get_attribute('value')
+
+        assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
 
     def fill_login_or_password(self, field_type, text):
