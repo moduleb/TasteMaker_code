@@ -9,7 +9,7 @@ class RegistrationPage(BasePage):
 
        
     def fill_login(self ,login_text):
-        """fill text in login / password field
+        """fill text in login  field
 
         Args:
             login_text (str): text which will be pasted in the field

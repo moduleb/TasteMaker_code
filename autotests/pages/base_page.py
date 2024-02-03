@@ -85,6 +85,28 @@ class BasePage():
             element.clear()
             element.send_keys(text)
 
+    def fill_login_base(self ,page, login_text):
+        """fill text in login  field
+
+        Args:
+            login_text (str): text which will be pasted in the field
+        """ 
+        if "reg" in page:
+            page_locator= RegistrationPageLocators.LOGIN
+        if "auth" in page:
+            page_locator=AuthorizationPageLocators.LOGIN
+            
+        assert "logi" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
+
+        login=self.enter_text(*page_locator,f"{login_text}")
+
+        login=self.browser.find_element(*page_locator)
+
+        login_value = login.get_attribute('value')
+
+        assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
+
+
     def fill_login_or_password(self, field_type, text):
         """fill text in login or password field
 
