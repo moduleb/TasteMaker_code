@@ -108,8 +108,8 @@ class BasePage():
         assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
 
     def fill_password_base(self ,page, password_text):
-        """fill password in field
-          and checks it's value on different pages
+        """fill password in field and checks it's value on different pages
+          
 
         Args:
             page (str): registration or authorization page to choose locators
@@ -129,6 +129,28 @@ class BasePage():
         password_value = password.get_attribute('value')
 
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
+
+
+    def check_login_password_warnings_base(self, page):
+        """check if there are some warnings during filling login or password
+        """   
+
+        if "reg" in page:
+            page_locator= RegistrationPageLocators.WARNING
+        if "auth" in page:
+            page_locator=AuthorizationPageLocators.WARNING     
+        
+        warning=self.is_element_present(*page_locator)
+        warning=self.browser.find_element(*page_locator)
+
+        warning_value=warning.value()
+        
+        key_word = "Неправильный логин или пароль"
+        assert key_word == warning_value, f"Expected {key_word} in warning, but got {warning_value}"
+
+        
+
+        
 
 
     def fill_login_or_password(self, field_type, text):

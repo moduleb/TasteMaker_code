@@ -10,6 +10,7 @@ from .variables.variables import correct_data
 link='example_link'
 
 @pytest.mark.parametrize('link',[link])
+
 def test_registration_with_valid_login_and_password(browser,link):
     page=RegistrationPage(browser,link)
     page.open()
