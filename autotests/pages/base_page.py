@@ -41,7 +41,7 @@ class BasePage():
             False: if one of the conditions isn't true
         """        
         try:
-            self.WebDriverWait(self.browser, 10).until(
+            self.browser.WebDriverWait(self.browser, 10).until(
                 EC.visibility_of_element_located((locator_type, locator))
             )
             return True
