@@ -18,6 +18,8 @@ def test_registration_with_valid_login_and_password(browser,link):
     page.click_registration_button()
     page.check_is_it_auth_page()
 
+    assert page.check_is_it_auth_page(), "Registration did not lead to the expected authorization page"
+
 def test_registration_with_not_valid_login_and_correct_password(browser,link):
 
     page=RegistrationPage(browser,link)

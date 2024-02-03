@@ -38,6 +38,8 @@ class BasePage():
             element.clear()
             element.send_keys(text)
 
+    
+
     def quit_browser(self):
         self.browser.quit()
 
