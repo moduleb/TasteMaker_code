@@ -18,9 +18,9 @@ class AuthorizationPage(BasePage):
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
     def click_authorization_button(self):
-        """click on authorization buttton
+        """click on authorization button
         """        
-        button=self.click_element(*AuthorizationPageLocators.BUTTON)
+        self.click_element(*AuthorizationPageLocators.BUTTON)
 
     def check_is_it_main_page(self):
         """check if the current page is main page

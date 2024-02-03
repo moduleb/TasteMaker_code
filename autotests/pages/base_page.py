@@ -99,7 +99,7 @@ class BasePage():
             
         assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
 
-        login=self.enter_text(*page_locator,f"{login_text}")
+        self.enter_text(*page_locator,f"{login_text}")
 
         login=self.browser.find_element(*page_locator)
 
@@ -122,7 +122,7 @@ class BasePage():
             
         assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
 
-        password=self.enter_text(*page_locator,f"{password_text}")
+        self.enter_text(*page_locator,f"{password_text}")
 
         password=self.browser.find_element(*page_locator)
 

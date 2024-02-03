@@ -37,13 +37,13 @@ class RegistrationPage(BasePage):
     def click_registration_button(self):
         """click to registration button
         """        
-        button=self.click_element(*RegistrationPageLocators.BUTTON)
+        self.click_element(*RegistrationPageLocators.BUTTON)
 
 
     def check_is_it_auth_page(self):
-        """chech is the current page is authorization page
+        """check is the current page is authorization page
         """        
-        
+
         auth_button = self.browser.WebDriverWait(self.browser, 10).until(
     EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
 
