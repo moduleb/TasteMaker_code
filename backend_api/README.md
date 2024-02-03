@@ -250,7 +250,7 @@
 <a name="use-access_token"></a>
 ## Использование access-токена.
 
-Необходимо использовать полученный `access_token` для авторизации,
+Необходимо использовать [полученный](#get-access_token) `access_token` для авторизации,
 передавая его в заголовке в формате:
 
 ```Authorization: Bearer ACCESS_TOKEN```
