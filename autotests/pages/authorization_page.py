@@ -1,7 +1,7 @@
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from .locators import AuthorizationPageLocators , MainPageLocators
+from ..locators.locators import AuthorizationPageLocators , MainPageLocators
 
 class AuthorizationPage(BasePage):
     def fill_login(self,login_text):
