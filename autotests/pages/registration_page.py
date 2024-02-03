@@ -35,12 +35,14 @@ class RegistrationPage(BasePage):
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
     def click_registration_button(self):
-
+        """click to registration button
+        """        
         button=self.click_element(*RegistrationPageLocators.BUTTON)
 
 
     def check_is_it_auth_page(self):
-
+        """chech is the current page is authorization page
+        """        
         auth_button = self.browser.WebDriverWait(self.browser, 10).until(
     EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
 
@@ -52,8 +54,10 @@ class RegistrationPage(BasePage):
 
 
     def check_login_password_warnings(self):
-
+        """check if there are some warnings during filling login or password
+        """        
         warning=self.is_element_present(*RegistrationPageLocators.WARNING)
+        warning=self.browser.find_element(*RegistrationPageLocators.WARNING)
 
         warning_value=warning.value()
         
