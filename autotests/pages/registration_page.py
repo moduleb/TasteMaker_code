@@ -6,6 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from ..locators.locators import AuthorizationPageLocators
 
 class RegistrationPage(BasePage):
+
+    """
+    
+    """
     def fill_login(self ,login_text):
     
         login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{login_text}")
