@@ -43,6 +43,7 @@ class RegistrationPage(BasePage):
     def check_is_it_auth_page(self):
         """chech is the current page is authorization page
         """        
+        
         auth_button = self.browser.WebDriverWait(self.browser, 10).until(
     EC.visibility_of_element_located(*AuthorizationPageLocators.BUTTON))
 

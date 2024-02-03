@@ -18,11 +18,13 @@ class AuthorizationPage(BasePage):
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
     def click_authorization_button(self):
-
+        """click on authorization buttton
+        """        
         button=self.click_element(*AuthorizationPageLocators.BUTTON)
 
     def check_is_it_main_page(self):
-
+        """check if the current page is main page
+        """        
         receipt_list = self.browser.WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(*MainPageLocators.PRODUCT_LIST))
         current_url = self.browser.current_url
@@ -31,7 +33,10 @@ class AuthorizationPage(BasePage):
         assert key_word in current_url, f"Expected {key_word} in URL, but got: {current_url}"
 
     def check_login_password_warnings(self):
+        """check if there are some warnings during filling login or password
+        """        
         warning = self.is_element_present(*AuthorizationPageLocators.WARNING)
+        warning=self.browser.find_element(*AuthorizationPageLocators.WARNING)
         warning_value = warning.get_attribute('value')
 
         key_word = "Неправильный логин или пароль"
