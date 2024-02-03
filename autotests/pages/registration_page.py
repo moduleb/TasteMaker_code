@@ -17,16 +17,13 @@ class RegistrationPage(BasePage):
         self.fill_login_base(RegistrationPageLocators.LOGIN,login_text)
         
     def fill_password(self,password_text):
-    
-    
-        password=self.enter_text(*RegistrationPageLocators.PASSWORD,f"{password_text}")
+        """fill text in password field
 
-        password=self.is_element_present(*RegistrationPageLocators.PASSWORD)
-
-        password_value = password.get_attribute('value')
-
-        assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
-
+        Args:
+            password_text (str): text which will be pasted in password
+        """        
+        self.fill_password_base(*RegistrationPageLocators.PASSWORD,password_text)
+        
     
 
     def click_registration_button(self):

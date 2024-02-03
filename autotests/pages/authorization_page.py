@@ -6,17 +6,22 @@ from ..locators.locators import AuthorizationPageLocators , MainPageLocators
 class AuthorizationPage(BasePage):
    
 
+    def fill_login(self ,login_text):
+        """fill text in login  field
+
+        Args:
+            login_text (str): text which will be pasted in the field
+        """ 
+        self.fill_login_base(*AuthorizationPageLocators.LOGIN,login_text)
+        
     def fill_password(self,password_text):
-    
-    
-        password=self.enter_text(*AuthorizationPageLocators.PASSWORD,f"{password_text}")
+        """fill text in password field
 
-        password=self.is_element_present(*AuthorizationPageLocators.PASSWORD)
-
-        password_value=password.get_attribute('value')
-
-        assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
-
+        Args:
+            password_text (str): text which will be pasted in password
+        """        
+        self.fill_password_base(*AuthorizationPageLocators.PASSWORD,password_text)
+        
     def click_authorization_button(self):
         """click on authorization button
         """        
