@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from .pages.registration_page import RegistrationPage
 import pytest
-from .pages.variables import correct_data
+from .variables.variables import correct_data
 
 link='example_link'
 
