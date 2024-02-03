@@ -89,7 +89,7 @@ class BasePage():
         """fill login and checks its value in different pages
 
         Args:
-            locator (str): string to identify element ex. //div[@class='example']
+            page_locator (str): string to identify element ex. //div[@class='example']
             login_text (text): text to fill in field
         """        
         
@@ -102,43 +102,16 @@ class BasePage():
         assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
 
 
-    def fill_login_base(self ,page, login_text):
-        """fill login and checks its value in different pages
-
-        Args:
-            page (str): registration or authorization page to choose locators
-            login_text (text): text to fill in field
-        """        
-        if "reg" in page:
-            page_locator= RegistrationPageLocators.LOGIN
-        if "auth" in page:
-            page_locator=AuthorizationPageLocators.LOGIN
-            
-        assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
-
-        self.enter_text(*page_locator,f"{login_text}")
-
-        login=self.browser.find_element(*page_locator)
-
-        login_value = login.get_attribute('value')
-
-        assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
-
-    def fill_password_base(self ,page, password_text):
+    
+    def fill_password_base(self ,page_locator, password_text):
         """fill password in field and checks it's value on different pages
           
 
         Args:
-            page (str): registration or authorization page to choose locators
+            page_locator (str): string to identify element ex. //div[@class='example']
             password_text (text): text to fill in field
         """       
-        if "reg" in page:
-            page_locator= RegistrationPageLocators.PASSWORD
-        if "auth" in page:
-            page_locator=AuthorizationPageLocators.PASSWORD
-            
-        assert "req" not in page or "auth" not in page, f"expect page consist of 'reg' or 'auth', page is {page}"
-
+        
         self.enter_text(*page_locator,f"{password_text}")
 
         password=self.browser.find_element(*page_locator)
