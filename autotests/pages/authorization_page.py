@@ -4,16 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from ..locators.locators import AuthorizationPageLocators , MainPageLocators
 
 class AuthorizationPage(BasePage):
-    def fill_login(self,login_text):
-        
-        login=self.enter_text(*AuthorizationPageLocators.LOGIN,f"{login_text}")
-
-        login=self.is_element_present(*AuthorizationPageLocators.LOGIN)
-
-        login_value=login.getattribute('value')
-
-        assert login_value==login_text, f"Authorization is shown like {login_value}, but must be {login_text}"
-
+   
 
     def fill_password(self,password_text):
     
@@ -22,7 +13,7 @@ class AuthorizationPage(BasePage):
 
         password=self.is_element_present(*AuthorizationPageLocators.PASSWORD)
 
-        password_value=password.getattribute('value')
+        password_value=password.get_attribute('value')
 
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
 
@@ -32,7 +23,7 @@ class AuthorizationPage(BasePage):
 
     def check_is_it_main_page(self):
 
-        receipt_list = self.WebDriverWait(self.browser, 10).until(
+        receipt_list = self.browser.WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(*MainPageLocators.PRODUCT_LIST))
         current_url = self.browser.current_url
 
