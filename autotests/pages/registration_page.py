@@ -14,15 +14,8 @@ class RegistrationPage(BasePage):
         Args:
             login_text (str): text which will be pasted in the field
         """ 
-
-        login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{login_text}")
-
-        login=self.is_element_present(*RegistrationPageLocators.LOGIN)
-
-        login_value = login.get_attribute('value')
-
-        assert login_value==login_text, f"Registration is shown like {login_value}, but must be {login_text}"
-
+        self.fill_login_base(RegistrationPageLocators.LOGIN,login_text)
+        
     def fill_password(self,password_text):
     
     
@@ -33,6 +26,8 @@ class RegistrationPage(BasePage):
         password_value = password.get_attribute('value')
 
         assert password_value==password_text, f"password is shown like {password_value}, but must be {password_text}"
+
+    
 
     def click_registration_button(self):
         """click to registration button

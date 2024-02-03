@@ -85,6 +85,23 @@ class BasePage():
             element.clear()
             element.send_keys(text)
 
+    def fill_login_base(self ,page_locator, login_text):
+        """fill login and checks its value in different pages
+
+        Args:
+            locator (str): string to identify element ex. //div[@class='example']
+            login_text (text): text to fill in field
+        """        
+        
+        self.enter_text(*page_locator,f"{login_text}")
+
+        login=self.browser.find_element(*page_locator)
+
+        login_value = login.get_attribute('value')
+
+        assert login_value==login_text, f"Login is shown like {login_value}, but must be {login_text}"
+
+
     def fill_login_base(self ,page, login_text):
         """fill login and checks its value in different pages
 
