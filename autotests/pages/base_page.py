@@ -1,5 +1,5 @@
-from selenium.common.exceptions import *
-from selenium import webdriver
+from selenium.common.exceptions import TimeoutException,NoSuchElementException
+
 from selenium.webdriver.support import expected_conditions as EC
 from ..locators.locators import AuthorizationPageLocators
 from ..locators.locators import RegistrationPageLocators
