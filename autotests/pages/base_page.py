@@ -1,6 +1,8 @@
 from selenium.common.exceptions import *
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
+from ..locators.locators import AuthorizationPageLocators
+from ..locators.locators import RegistrationPageLocators
 class BasePage():
     
     def __init__(self,browser,url,timeout=10):
@@ -82,6 +84,28 @@ class BasePage():
             element=self.browser.find_element(locator_type, locator)
             element.clear()
             element.send_keys(text)
+
+    def fill_login_or_password(self, field_type, text):
+        """fill text in login or password field
+
+        Args:
+            text (str): text which will be pasted in the field
+        """ 
+
+        if field_type=="login":
+            locators=RegistrationPageLocators.LOGIN
+        if field_type=="password":
+            locators=RegistrationPageLocators.LOGIN
+
+        assert field_type != "login" or "password", f"field type isn't login or password, it's {field_type}"
+
+        element=self.enter_text(*locators,f"{text}")
+
+        element=self.browser.find_element(*locators)
+
+        element_value = element.get_attribute('value')
+
+        assert element_value==text, f"Registration is shown like {element_value}, but must be {text}"
 
         
         

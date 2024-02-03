@@ -7,14 +7,14 @@ from ..locators.locators import AuthorizationPageLocators
 
 class RegistrationPage(BasePage):
 
-    
+       
     def fill_login(self ,login_text):
         """fill text in login / password field
 
         Args:
             login_text (str): text which will be pasted in the field
         """ 
-               
+
         login=self.enter_text(*RegistrationPageLocators.LOGIN,f"{login_text}")
 
         login=self.is_element_present(*RegistrationPageLocators.LOGIN)
