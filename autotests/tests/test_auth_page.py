@@ -10,11 +10,13 @@ from ..variables.variables import correct_data, incorrect_data
 link='example_link'
 
 @pytest.mark.parametrize('link',[link])
-def test_authorization_with_existing_login_and_password(browser,link):
+def test_authorization_with_existing_login_and_password(browser,link,login,password):
+    login=correct_data["LOGIN"]
+    password=correct_data["PASSWORD"]
     page=AuthorizationPage(browser,link)
     page.open()
-    page.fill_login(correct_data["LOGIN"])
-    page.fill_password(correct_data["PASSWORD"])
+    page.fill_login(login)
+    page.fill_password(password)
     page.click_authorization_button()
     page.check_is_it_main_page()
 
