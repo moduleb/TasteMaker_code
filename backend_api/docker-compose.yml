@@ -1,0 +1,25 @@
+version: "4.27.1"
+
+services:
+  backend:
+    container_name: taste-maker
+    build:
+      context: ../
+      dockerfile: ./backend_api/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE
+    env_file:
+      - .env
+    command: ./start-web.sh
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    restart: always
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+
+volumes:
+  media:
+  static:
