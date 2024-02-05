@@ -3,15 +3,22 @@ import { useState } from "react"
 import s from "../AuthForm.module.css"
 import { Input } from "../../../components/UI/Input/Input.tsx"
 import { Button } from "../../../components/UI/Button/Button.tsx"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
+import { useAppDispatch } from "../../../hooks/reduxHooks.ts"
+import { loginByEmail } from "../../../store/slices/authorization/userActions.ts"
+import { useAuth } from "../../../hooks/useAuth.ts"
 
 export const LoginPage = () => {
-  const onLogin = (email: string, pass: string) => {
-    console.log(email, pass)
+  const dispatch = useAppDispatch()
+  const { isAuth } = useAuth()
+  const onLogin = (email: string, password: string) => {
+    dispatch(loginByEmail({ email, password }))
   }
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
-  return (
+  return isAuth ? (
+    <Navigate to="/" />
+  ) : (
     <>
       <Form
         title="Главная/Войти на сайт"
