@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+#set -euo pipefail
 
 python manage.py collectstatic --no-input
 python manage.py makemigrations

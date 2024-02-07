@@ -28,19 +28,16 @@ RUN apt-get update && \
   && pip install "poetry-core==1.8.1" "poetry==$POETRY_VERSION" && poetry --version
 
 # Copy only requirements, to cache them in docker layer
-WORKDIR /app
+WORKDIR /usr/src/TasteMaker
 
-COPY ./backend_api/poetry.lock ./backend_api/pyproject.toml /app/
+COPY . .
+
+WORKDIR ./backend_api/
 
 # Project initialization:
 RUN poetry install
 
-# Creating folders, and files for a project:
-COPY . /app
-
-COPY ./backend_api/start-web.sh ./app/start-web.sh
 
 # Setting up proper permissions:
-RUN chmod +x ./app/start-web.sh
+RUN chmod +x start-web.sh
 
-WORKDIR backend_api

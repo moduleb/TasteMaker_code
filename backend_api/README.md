@@ -41,14 +41,14 @@ python manage.py runserver
 
 ## Запуск приложения через Docker
 
-Для локальной разработки бэкэнда(из TasteMaker_code/backend_api/)
+Для локальной разработки бэкэнда(из TasteMaker_code)
 
 ```bash
-docker-compose -f docker-compose.yml --env-file ./.env up -d --build
+docker-compose -f docker-compose.yml --env-file ./backend_api/.env up -d --build
 ```
 ## Архитектура приложения
 
-```bash
+```
 < PROJECT ROOT >
    |
    |-- backend_api/                 

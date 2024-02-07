@@ -4,16 +4,16 @@ services:
   backend:
     container_name: taste-maker
     build:
-      context: ../
+      context: ./
       dockerfile: ./backend_api/Dockerfile
     environment:
       - DJANGO_SETTINGS_MODULE
     env_file:
-      - .env
-    command: ./start-web.sh
+      - backend_api/.env
+    entrypoint: ./start-web.sh
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/usr/src/TasteMaker/backend_api/static
+      - media:/usr/src/TasteMaker/backend_api/media
     restart: always
     expose:
       - 8000
