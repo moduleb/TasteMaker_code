@@ -1,6 +1,14 @@
-import axios from "axios"
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios"
 import { AuthResponse } from "../models/authorization.ts"
 export const API_URL = "/api"
+
+interface AxiosErrorType extends AxiosError {
+  config: AxiosConfigType
+}
+
+interface AxiosConfigType extends InternalAxiosRequestConfig {
+  _isRetry: boolean
+}
 
 export const $api = axios.create({
   withCredentials: true,
@@ -17,10 +25,10 @@ $api.interceptors.request.use((config) => {
 
 $api.interceptors.response.use(
   (config) => config,
-  async (error) => {
+  async (error: AxiosErrorType) => {
     const originalRequest = error.config
     if (
-      error.response.status == 401 &&
+      error.response?.status == 401 &&
       error.config &&
       !error.config._isRetry
     ) {
@@ -30,9 +38,10 @@ $api.interceptors.response.use(
           `${API_URL}/token/refresh/`,
           { refresh: localStorage.getItem("refresh") },
         )
-        const { refresh, access } = response.data
-        localStorage.setItem("refresh", refresh)
+        const { access } = response.data
         localStorage.setItem("access", access)
+        originalRequest.headers.Authorization = `Bearer ${access}`
+        originalRequest.data = { ...originalRequest.data, token: access }
         return $api.request(originalRequest)
       } catch (e) {
         console.log("пользователь не авторизован")

@@ -42,8 +42,8 @@ const userSlice = createSlice({
       .addCase(loginByEmail.rejected, (state, action) => {
         console.log(state, action)
       })
-      .addCase(checkAuth.fulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken
+      .addCase(checkAuth.fulfilled, (state) => {
+        state.accessToken = localStorage.getItem("access")
       })
   },
 })
