@@ -173,12 +173,7 @@
 
 Получаем учетные данные зарегистрированного пользователя.
 
-```json
-{
-  "password": "pbkdf2_sha256$720000$7mIMfGeEUYHZVAZrO6vkOh$Jx/pM7ZBYzrLF3AuUAFRztl30BvVnOeh5xoazC8Ir+0=",
-  "email": "user@example.com"
-}
-```
+`201 Created` - Запрос выполнен успешно
 
 #### Ошибки
 
