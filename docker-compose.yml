@@ -4,13 +4,11 @@ services:
   backend:
     container_name: taste-maker
     build:
-      context: ./
-      dockerfile: ./backend_api/Dockerfile
-    environment:
-      - DJANGO_SETTINGS_MODULE
+      context: ./backend_api
+      dockerfile: Dockerfile
     env_file:
-      - backend_api/.env
-    entrypoint: ./start-web.sh
+      - ./backend_api/.env
+    command: ./backend_api/start-web.sh
     volumes:
       - static:/usr/src/TasteMaker/backend_api/static
       - media:/usr/src/TasteMaker/backend_api/media

@@ -37,7 +37,9 @@ WORKDIR ./backend_api/
 # Project initialization:
 RUN poetry install
 
+COPY start-web.sh start-web.sh
 
 # Setting up proper permissions:
 RUN chmod +x start-web.sh
 
+WORKDIR ..
