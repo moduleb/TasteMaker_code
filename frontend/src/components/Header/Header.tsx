@@ -3,8 +3,10 @@ import { Container } from "../UI/Container/Container.tsx"
 import { Button } from "../UI/Button/Button.tsx"
 import { Link } from "react-router-dom"
 import Logo from "../../assets/logo.png"
+import { useAuth } from "../../hooks/useAuth.ts"
 
 export const Header = () => {
+  const { isAuth } = useAuth()
   return (
     <div className={s.headerWrap}>
       <Container>
@@ -30,9 +32,11 @@ export const Header = () => {
             <Button>
               <Link to="/add-new-recipe">Добавить рецепт</Link>
             </Button>
-            <Button>
-              <Link to="/login">Войти</Link>
-            </Button>
+            {!isAuth ? (
+              <Button>
+                <Link to="/login">Войти</Link>
+              </Button>
+            ) : null}
           </div>
         </header>
       </Container>
