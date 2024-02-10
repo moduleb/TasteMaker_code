@@ -1,33 +1,43 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { $api } from "../../../http"
 import { AuthResponse } from "../../../models/authorization.ts"
+import { AxiosError } from "axios"
+import { IUser } from "./userSlice.ts"
 
 interface requestArgs {
   email: string
   password: string
 }
-export const registerByEmail = createAsyncThunk(
+
+export interface ErrorPayload {
+  email: [string]
+}
+
+export const registerByEmail = createAsyncThunk<
+  IUser,
+  requestArgs,
+  { rejectValue: ErrorPayload }
+>(
   "registerByEmail",
   async ({ email, password }: requestArgs, { rejectWithValue }) => {
     try {
-      const registerRequest = await $api.post("/register", {
+      await $api.post("/register", {
         email,
         password,
       })
-      if (registerRequest.status !== 201) {
-        return rejectWithValue("Пользователь не зарегистрирован")
-      }
       const tokenRequest = await $api.post<AuthResponse>("/token/", {
         email,
         password,
       })
-      if (tokenRequest.status !== 200) {
-        return rejectWithValue("неверные данные пользователя")
-      }
+
       const { access, refresh } = tokenRequest.data
-      return { refreshToken: refresh, accessToken: access, email }
+      return { refreshToken: refresh, accessToken: access, email } as IUser
     } catch (e) {
-      return rejectWithValue(e)
+      const error: AxiosError<ErrorPayload> = e as never
+      if (!error.response) {
+        throw error
+      }
+      return rejectWithValue(error.response.data)
     }
   },
 )
@@ -36,17 +46,19 @@ export const loginByEmail = createAsyncThunk(
   "loginByEmail",
   async ({ email, password }: requestArgs, { rejectWithValue }) => {
     try {
-      const tokenRequest = await $api.post<AuthResponse>("/token/", {
+      const tokenResponse = await $api.post<AuthResponse>("/token/", {
         email,
         password,
       })
-      if (tokenRequest.status !== 200) {
+      if (tokenResponse.status !== 200) {
         return rejectWithValue("неверные данные пользователя")
       }
-      const { access, refresh } = tokenRequest.data
+      const { access, refresh } = tokenResponse.data
       return { refreshToken: refresh, accessToken: access, email }
     } catch (e) {
-      return rejectWithValue(e)
+      return rejectWithValue({
+        message: "Пользователь с такими данными не найден",
+      })
     }
   },
 )

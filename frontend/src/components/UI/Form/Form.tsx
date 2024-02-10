@@ -18,7 +18,7 @@ export const Form = ({
   }
 
   return (
-    <form action="#" onSubmit={onSubmit} className={`${s.form} ${styles}`}>
+    <form onSubmit={onSubmit} className={`${s.form} ${styles}`}>
       <h2 className={s.formTitle}>{title}</h2>
       <div className={s.formContent}>{children}</div>
     </form>
