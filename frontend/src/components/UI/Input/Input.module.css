@@ -20,5 +20,13 @@
     color: #4E4E4E;
 }
 .errorMessage {
-    color: #ff0000;
+    color: #E05F5F;
+    position: absolute;
+    font-size: 12px;
+    line-height: 24px;
+    bottom: -25px;
+    left: 18px;
+}
+.error {
+    border-color: #E05F5F;
 }
