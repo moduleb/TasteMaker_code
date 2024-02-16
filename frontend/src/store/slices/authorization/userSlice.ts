@@ -22,7 +22,11 @@ const initialState: IUser = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrorMessage: (state) => {
+      state.errorMessage = null
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerByEmail.fulfilled, (state, { payload }) => {
@@ -62,3 +66,4 @@ const userSlice = createSlice({
 })
 
 export const userReducer = userSlice.reducer
+export const { clearErrorMessage } = userSlice.actions
