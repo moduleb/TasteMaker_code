@@ -1,25 +1,23 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import s from "./Input.module.css"
 import emailIcon from "../../../assets/icons/email.png"
 import passwordHiddenIcon from "../../../assets/icons/password-hidden.png"
 import passwordIcon from "../../../assets/icons/password.png"
 import { useValidationReturnType } from "../../../hooks/useValidation.ts"
 import { useInputReturnType } from "../../../hooks/useInput.ts"
+import { getErrorMessage } from "../../../utils/getErrorMessageInput.ts"
 
 interface Props extends useValidationReturnType, useInputReturnType {
   type: "text" | "password" | "email"
   placeholder?: string
   name?: string
 }
-// функция для получения src иконки. когда появятся другие виды инпутов, нужно будет переделать
-const getIconSrc = (type: "email" | "text" | "password") => {
-  if (type === "email") {
-    return emailIcon
-  }
-  if (type === "password") {
-    return passwordIcon
-  }
-  return passwordHiddenIcon
+
+const icons = {
+  email: emailIcon,
+  password: passwordIcon,
+  passwordHidden: passwordHiddenIcon,
+  text: null,
 }
 
 export const Input = ({
@@ -36,7 +34,7 @@ export const Input = ({
   emailError,
   dirty,
 }: Props) => {
-  const [iconSrc, setIconSrc] = useState(getIconSrc(type))
+  const [iconSrc, setIconSrc] = useState(icons[type])
   const [inputType, setInputType] = useState(type)
 
   const iconClickHandler = () => {
@@ -49,25 +47,24 @@ export const Input = ({
       setInputType("password")
     }
   }
-
-  const errorMessage = () => {
-    if (!dirty) return ""
-    if (isEmpty) {
-      return "Поле не должно быть пустым"
-    }
-    return (
-      [maxLengthError, minLengthError, passwordError, emailError].find(
-        (error) => error,
-      ) || ""
-    )
-  }
+  const errorMessage = useMemo(
+    () =>
+      getErrorMessage({
+        dirty,
+        isEmpty,
+        maxLengthError,
+        minLengthError,
+        passwordError,
+        emailError,
+      }),
+    [dirty, isEmpty, maxLengthError, minLengthError, passwordError, emailError],
+  )
 
   return (
     <>
-      <span className={s.errorMessage}>{errorMessage()}</span>
       <label className={s.label}>
         <input
-          className={s.input}
+          className={`${s.input} ${!errorMessage ? "" : s.error}`}
           type={inputType}
           onChange={onChange}
           value={value}
@@ -76,11 +73,12 @@ export const Input = ({
           onBlur={onBlur}
         />
         <img
-          src={iconSrc}
+          src={iconSrc || ""}
           className={s.icon}
           alt="icon"
           onClick={iconClickHandler}
         />
+        <span className={s.errorMessage}>{errorMessage}</span>
       </label>
     </>
   )
