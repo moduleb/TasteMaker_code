@@ -8,7 +8,10 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./backend_api/.env
-    command: ./backend_api/start-web.sh
+    command: >
+      sh -c "python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     volumes:
       - static:/usr/src/TasteMaker/backend_api/static
       - media:/usr/src/TasteMaker/backend_api/media
