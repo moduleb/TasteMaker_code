@@ -15,17 +15,17 @@ export const Header = () => {
             <img src={Logo} alt="logo" />
           </Link>
           <nav className={s.menu}>
-            {/*<ul>*/}
-            {/*  <li>*/}
-            {/*    <Link to="/">Главная</Link>*/}
-            {/*  </li>*/}
-            {/*  <li>*/}
-            {/*    <Link to="/recipes">Рецепты</Link>*/}
-            {/*  </li>*/}
-            {/*  <li>*/}
-            {/*    <Link to="/my-recipes">Мои рецепты</Link>*/}
-            {/*  </li>*/}
-            {/*</ul>*/}
+            <ul>
+             <li>
+               <Link to="/">Главная</Link>
+             </li>
+             <li>
+               <Link to="/recipes">Рецепты</Link>
+             </li>
+             <li>
+               <Link to="/my-recipes">Мои рецепты</Link>
+             </li>
+            </ul>
           </nav>
 
           <div className={s.btns}>
