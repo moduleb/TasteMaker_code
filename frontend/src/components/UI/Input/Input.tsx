@@ -11,6 +11,7 @@ interface Props extends useValidationReturnType, useInputReturnType {
   type: "text" | "password" | "email"
   placeholder?: string
   name?: string
+  allowedSymbols?: number
 }
 
 const icons = {
@@ -33,6 +34,7 @@ export const Input = ({
   passwordError,
   emailError,
   dirty,
+  allowedSymbols,
 }: Props) => {
   const [iconSrc, setIconSrc] = useState(icons[type])
   const [inputType, setInputType] = useState(type)
@@ -72,13 +74,24 @@ export const Input = ({
           name={name || type}
           onBlur={onBlur}
         />
-        <img
-          src={iconSrc || ""}
-          className={s.icon}
-          alt="icon"
-          onClick={iconClickHandler}
-        />
-        <span className={s.errorMessage}>{errorMessage}</span>
+        {iconSrc && (
+          <img
+            src={iconSrc}
+            className={s.icon}
+            alt="icon"
+            onClick={iconClickHandler}
+          />
+        )}
+
+        {allowedSymbols && !errorMessage && (
+          <span className={s.message}>
+            Можно ввести знаков: {allowedSymbols}
+          </span>
+        )}
+
+        {errorMessage && (
+          <span className={s.message + " " + s.error}>{errorMessage}</span>
+        )}
       </label>
     </>
   )

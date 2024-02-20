@@ -1,0 +1,14 @@
+.form {
+    max-width: 817px;
+}
+.formBlock {
+    max-width: 627px;
+    margin-bottom: 73px;
+}
+.title {
+    font-family: Inter, sans-serif;
+    font-size: 34px;
+    color: var(--main-black);
+    margin-bottom: 32px;
+    margin-top: 0;
+}
