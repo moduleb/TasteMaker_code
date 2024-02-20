@@ -30,7 +30,7 @@ export const Textarea = ({
       <textarea
         cols={30}
         rows={1}
-        className={`${s.textarea} ${(maxLengthError || (dirty && isEmpty)) && s.error}`}
+        className={`${s.textarea} ${(maxLengthError || (dirty && isEmpty && required)) && s.error}`}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
