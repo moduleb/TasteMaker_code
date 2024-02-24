@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from .serializers import UserSerializer
 
 
+
+
 class UserCreateView(generics.CreateAPIView):
     """Оправляет POST запрос для регистрации пользователя в БД"""
     serializer_class = UserSerializer

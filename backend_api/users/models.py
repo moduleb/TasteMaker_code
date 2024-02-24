@@ -49,6 +49,12 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     last_login = None
 
+    #Доп поля для модели "Пользователь"
+    about_me = models.CharField(max_length=1000)
+    at_registration = models.DateTimeField(auto_now_add=True) #Дата регистрации "Пользователя"
+    foto = models.ImageField() #Поле для пути к фото для аватар "Пользователя"
+
+
     objects = MyUserManager()
 
     USERNAME_FIELD = "email"
