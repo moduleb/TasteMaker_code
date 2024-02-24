@@ -1,6 +1,7 @@
-from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+
 
 
 class MyUserManager(BaseUserManager):
@@ -35,10 +36,12 @@ class MyUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+
     email = models.EmailField(
         verbose_name="email address",
         max_length=100,
         unique=True,
+        validators=[RegexValidator(r"^[-a-zA-Z0-9_]{3,}")]#Минимальное кол-во символов 3(до "@")
     )
     password = models.CharField(max_length=64, validators=[MaxLengthValidator(limit_value=64),
                                                            MinLengthValidator(limit_value=8)])
@@ -69,3 +72,4 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
