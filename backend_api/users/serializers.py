@@ -16,3 +16,8 @@ class UserSerializer(ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+
+class UserRUDSerializer(ModelSerializer):
+    pass

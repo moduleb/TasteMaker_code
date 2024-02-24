@@ -18,3 +18,7 @@ class UserCreateView(generics.CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED)
+
+class UserRUDView(generics.RetrieveUpdateDestroyAPIView):
+    """Представление модели Пользователя"""
+    pass

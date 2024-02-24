@@ -1,7 +1,7 @@
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator, FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-from rest_framework import validators
+
 
 from backend_api.recipes.models import validate_file_size
 
@@ -54,9 +54,12 @@ class User(AbstractBaseUser):
     about_me = models.CharField(max_length=1000, blank=False, null=True)
     at_registration = models.DateTimeField(auto_now_add=True)  # Дата регистрации "Пользователя"
     foto = models.ImageField(upload_to='',
-                             validators=[validators.FileExtensionValidator(['png', 'jpg', 'jpeg']),
-                                         validate_file_size])  # Согласовать папку для загрузки изображений для фото пользователей
-    null = True)  # Поле для пути к фото для аватар "Пользователя"
+                             validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']),
+                                         validate_file_size],
+                             null=True)  # Поле для пути к фото для аватар "Пользователя"
+    # Согласовать папку для загрузки изображений для фото пользователей
+    nickname = models.CharField(max_length=30,
+                                validators=[MinLengthValidator(limit_value=1)])
 
     objects = MyUserManager()
 
