@@ -1,4 +1,5 @@
 from rest_framework import generics, status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .serializers import UserSerializer
 
@@ -8,6 +9,7 @@ from .serializers import UserSerializer
 class UserCreateView(generics.CreateAPIView):
     """Оправляет POST запрос для регистрации пользователя в БД"""
     serializer_class = UserSerializer
+    permission_classes = [AllowAny] #Создать пользователя могут не авторизированные пользователи
 
     def create(self, request, *args, **kwargs):
         """Метод возвращает статус POST запроса"""
