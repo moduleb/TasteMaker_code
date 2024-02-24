@@ -50,9 +50,9 @@ class User(AbstractBaseUser):
     last_login = None
 
     #Доп поля для модели "Пользователь"
-    about_me = models.CharField(max_length=1000)
+    about_me = models.CharField(max_length=1000, blank=False, null=True)
     at_registration = models.DateTimeField(auto_now_add=True) #Дата регистрации "Пользователя"
-    foto = models.ImageField() #Поле для пути к фото для аватар "Пользователя"
+    foto = models.ImageField(null=True) #Поле для пути к фото для аватар "Пользователя"
 
 
     objects = MyUserManager()
