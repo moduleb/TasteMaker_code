@@ -2,8 +2,7 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator, Regex
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
-
-from backend_api.recipes.models import validate_file_size
+from services.services import validate_file_size
 
 
 class MyUserManager(BaseUserManager):
@@ -59,7 +58,7 @@ class User(AbstractBaseUser):
                              null=True)  # Поле для пути к фото для аватар "Пользователя"
     # Согласовать папку для загрузки изображений для фото пользователей
     nickname = models.CharField(max_length=30,
-                                validators=[MinLengthValidator(limit_value=1)])
+                                validators=[MinLengthValidator(limit_value=1)], null=True)#Никнейм пока оставляем пустой
 
     objects = MyUserManager()
 

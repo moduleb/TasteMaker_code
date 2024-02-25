@@ -1,24 +1,13 @@
-import uuid
+
 from django.db import models
 from django.core import validators
-from rest_framework.exceptions import ValidationError
 
+
+from services.services import generate_filename, validate_file_size
 from users.models import User
 
 
-def generate_filename(instance, filename):
-    """Функция для генерации имени файла на основе UUID."""
-    extension = filename.split('.')[-1]  # получаем расширение файла
-    filename = f'images/{uuid.uuid4().hex}.{extension}'  # создаем новое имя файла
-    return filename
 
-
-def validate_file_size(value):
-    """Валидатор размера загружаемого изображения"""
-    filesize = value.size
-
-    if filesize > 2 * 1024 * 1024:
-        raise ValidationError("Максимальный размер файла 2 МБ.")
 
 
 class Category(models.Model):
