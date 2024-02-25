@@ -68,9 +68,7 @@ export const RecipePage = () => {
       <p className="recipe-title">{recipeSelector.name}</p>
       <br />
       <br />
-      <p className="recipe-description">
-        {recipeSelector.description}
-      </p>
+      <p className="recipe-description">{recipeSelector.description}</p>
       <br />
       <br />
       <img className="recipe-preview" src={recipeSelector.image} />
