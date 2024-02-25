@@ -1,6 +1,7 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from backend_api.swagger import schema_view
@@ -9,7 +10,7 @@ from backend_api import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/register', include('users.urls')),
+    path('', include('users.urls')),
     path('api/recipes', include('recipes.urls')),
 
     # TOKENS
@@ -24,3 +25,4 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

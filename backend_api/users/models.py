@@ -2,7 +2,7 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator, Regex
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
-from services.services import validate_file_size
+from services.services import validate_file_size, generate_filename_upload_foto
 
 
 class MyUserManager(BaseUserManager):
@@ -37,26 +37,20 @@ class MyUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name="email address",
-        unique=True,
-        # validators=[RegexValidator(r"^[-a-zA-Z0-9_]{3,}")]  # Минимальное кол-во символов 3(до "@")
-    )
+    email = models.EmailField(max_length=100,
+                              verbose_name="email address",
+                              unique=True,
+                              )
     password = models.CharField(max_length=64)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     last_login = None
 
     # Доп поля для модели "Пользователь"
-    about_me = models.CharField(max_length=1000, blank=False, null=True)
+    about_me = models.CharField(max_length=1000, blank=True, null=True)
     at_registration = models.DateTimeField(auto_now_add=True)  # Дата регистрации "Пользователя"
-    foto = models.ImageField(upload_to='',
-                             validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']),
-                                         validate_file_size],
-                             null=True)  # Поле для пути к фото для аватар "Пользователя"
-    # Согласовать папку для загрузки изображений для фото пользователей
-    nickname = models.CharField(max_length=30,
-                                validators=[MinLengthValidator(limit_value=1)], null=True)#Никнейм пока оставляем пустой
+    foto = models.ImageField(upload_to=generate_filename_upload_foto, blank=True)
+    nickname = models.CharField(max_length=30, default='Пользователь', blank=True, null=True)
 
     objects = MyUserManager()
 

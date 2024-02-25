@@ -1,15 +1,15 @@
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import UserSerializer
 
-
+from .models import User
+from .serializers import RegistrationSerializer, UserUpdateSerializer, UserSerializer
 
 
 class UserCreateView(generics.CreateAPIView):
     """Оправляет POST запрос для регистрации пользователя в БД"""
-    serializer_class = UserSerializer
-    permission_classes = [AllowAny] #Создать пользователя могут не авторизированные пользователи
+    serializer_class = RegistrationSerializer
+    permission_classes = [AllowAny]  # Создать пользователя могут не авторизированные пользователи
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -19,7 +19,25 @@ class UserCreateView(generics.CreateAPIView):
         return Response(status=status.HTTP_201_CREATED)
 
 
-
-class UserRUDView(generics.RetrieveUpdateDestroyAPIView):
+class UserRUDView(generics.RetrieveUpdateAPIView):
     """Представление модели Пользователя"""
-    pass
+    queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method in ['PUT', 'PATCH']:
+            return UserUpdateSerializer
+        return UserSerializer
+
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+
+        return Response(status=status.HTTP_201_CREATED)
+
