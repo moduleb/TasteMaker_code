@@ -28,7 +28,9 @@
     bottom: -25px;
     left: 18px;
 }
-.error {
+input.error {
     border-color: #E05F5F;
+}
+span.error {
     color: #E05F5F;
 }
