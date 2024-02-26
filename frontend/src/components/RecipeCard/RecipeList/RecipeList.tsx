@@ -1,9 +1,9 @@
-import { Recipe } from "../../../pages/HomePage/HomePage.tsx"
 import { RecipeItem } from "../RecipeItem/RecipeItem.tsx"
 import s from "./RecipeList.module.css"
+import { IRecipe } from "../../../store/slices/recipes/recipeSlice.ts"
 
 type Props = {
-  recipes: Recipe[]
+  recipes: IRecipe[]
 }
 export const RecipeList = ({ recipes }: Props) => {
   return (

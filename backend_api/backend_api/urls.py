@@ -9,7 +9,7 @@ from backend_api import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/register', include('users.urls')),
+    path('', include('users.urls')),
     path('api/recipes', include('recipes.urls')),
 
     # TOKENS
