@@ -1,0 +1,26 @@
+.textarea {
+    resize: none;
+    border: 1px solid var(--main-black);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 22px;
+}
+.label {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 24px;
+}
+.message {
+    color: #999999;
+    margin-top: 6px;
+}
+.errorMessage {
+    color: var(--bottom);
+    position: absolute;
+    bottom: 0;
+    line-height: 24px;
+}
+.error {
+    border-color:  var(--bottom);
+}

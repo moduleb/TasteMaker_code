@@ -7,11 +7,15 @@ export const useInput = (initialValue: string, validations: Validations) => {
   const [dirty, setDirty] = useState(false)
   const valid = useValidation(value, validations)
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
+    e,
+  ) => {
     setValue(e.target.value)
   }
 
-  const onBlur: FocusEventHandler<HTMLInputElement> = () => {
+  const onBlur: FocusEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = () => {
     setDirty(true)
   }
 

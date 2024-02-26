@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import { useAppDispatch } from "./hooks/reduxHooks.ts"
 import { checkAuth } from "./store/slices/authorization/userActions.ts"
 import { RecipePage } from "./pages/RecipePage/RecipePage.tsx"
+import { NewRecipePage } from "./pages/NewRecipePage/NewRecipePage.tsx"
 
 function App() {
   const dispatch = useAppDispatch()

@@ -79,7 +79,7 @@ export const checkAuth = createAsyncThunk(
         return { accessToken: null }
       }
     } catch (e) {
-      return rejectWithValue(e)
+      return rejectWithValue("Токен недействителен или просрочен")
     }
   },
 )
