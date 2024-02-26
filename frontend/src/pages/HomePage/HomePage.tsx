@@ -1,67 +1,21 @@
 import { useAuth } from "../../hooks/useAuth.ts"
-import { Link } from "react-router-dom"
 import mockMainBanner from "../../assets/main-banner.jpg"
-import mockRecipeItemImage from "../../assets/dish-photo.jpg"
 import { RecipeList } from "../../components/RecipeCard/RecipeList/RecipeList.tsx"
 import s from "./HomePage.module.css"
-
-const mockRecipes = [
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-  {
-    image: mockRecipeItemImage,
-    title: "Картофельные зразы с мясным фаршем",
-    url: "#",
-  },
-]
-
-export interface Recipe {
-  image: string
-  title: string
-  url: string
-}
+import { useEffect, useState } from "react"
+import { $api } from "../../http"
+import { IRecipe } from "../../store/slices/recipes/recipeSlice.ts"
 
 export const HomePage = () => {
   // return <Navigate to="/login" />
   const { isAuth } = useAuth()
+  const [recipes, setRecipes] = useState<IRecipe[]>([])
+
+  useEffect(() => {
+    $api.get("/recipes/").then((res) => {
+      setRecipes(res.data)
+    })
+  }, [])
 
   return (
     <div>
@@ -75,7 +29,7 @@ export const HomePage = () => {
         alt="Изображение блюда"
         className={s.mainBanner}
       />
-      <RecipeList recipes={mockRecipes} />
+      <RecipeList recipes={recipes} />
     </div>
   )
 }
