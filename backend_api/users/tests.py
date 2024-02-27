@@ -9,16 +9,32 @@ class UserTests(APITestCase):
 
     def setUp(self):
 
-        self.test_user = User.objects.create_user(email="user1@mail.ru", password="12345678")
+        self.test_user = User.objects.create(email="user1@mail.ru", password="12345678",
+                                                  about_me="", nickname="Пользователь")
         self.test_user.save()
-        print(self.test_user.id)
 
-    def test_get_user(self):
+
+    def test_positive_get_user(self):
         """Проверка на status_code_200 и существование пользователя по email"""
 
         response = self.client.get(f'/api/user/{self.test_user.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['email'], 'user1@mail.ru')
+
+    def test_negative_get_user(self):
+        """Проверка на status_code_404 и несуществование пользователя"""
+
+        response = self.client.get(f'/api/user/50/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_positive_put_user(self):
+        """Проверка на status_code_201_CREATED и существование пользователя по email"""
+        data = {'about_me': 'Я повар', 'nickname': 'Юрец'}
+        response = self.client.put(f'/api/user/{self.test_user.id}/', data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(User.objects.get().about_me, 'Я повар')
+        self.assertEqual(User.objects.get().nickname, 'Юрец')
+
 
     def test_positive_create_user(self):
         """
