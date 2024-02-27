@@ -14,7 +14,7 @@ class UserTests(APITestCase):
         print(self.test_user.id)
 
     def test_get_user(self):
-        """Проверка на status_code_200 и существование пользователя"""
+        """Проверка на status_code_200 и существование пользователя по email"""
 
         response = self.client.get(f'/api/user/{self.test_user.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
