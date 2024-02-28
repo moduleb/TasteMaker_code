@@ -1,5 +1,7 @@
 import "./RecipePage.css"
 
+import * as s from "./RecipePage.module.css"
+
 import recipePreview from "./../../assets/recipe-example.png"
 import { useAppDispatch } from "../../hooks/reduxHooks"
 import {
@@ -53,6 +55,7 @@ export const RecipePage = () => {
   const fetchRecipe = async () => {
     try {
       await dispatch(getRecipe(recipe_id))
+      console.log(s.mainContainer)
     } catch (e) {
       console.log(e)
     }
@@ -63,18 +66,18 @@ export const RecipePage = () => {
   }, [])
 
   return (
-    <div className="main-container">
+    <div className={s.mainContainer}>
       {/* <input type="file" onChange={onImageChange} /> */}
-      <p className="recipe-title">{recipeSelector.name}</p>
+      <p className={s.recipeTitle}>{recipeSelector.name}</p>
       <br />
       <br />
-      <p className="recipe-description">{recipeSelector.description}</p>
+      <p className={s.recipeDescription}>{recipeSelector.description}</p>
       <br />
       <br />
-      <img className="recipe-preview" src={recipeSelector.image} />
+      <img className={s.recipePreview} src={recipeSelector.image} />
       <br />
       <br />
-      <div className="recipe-double-div">
+      <div className={s.recipeDoubleDiv}>
         <div className="recipe-ingredients-div">
           <p className="recipe-subtitle">ИНГРЕДИЕНТЫ</p>
           <p className="recipe-description">
