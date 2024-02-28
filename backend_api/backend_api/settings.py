@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 # packages
 INSTALLED_APPS += [
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'rest_framework',
     'drf_yasg',  # swagger docs
 ]

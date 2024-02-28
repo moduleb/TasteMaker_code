@@ -1,6 +1,8 @@
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIClient
+
 
 from users.models import User
 
@@ -10,9 +12,12 @@ class UserTests(APITestCase):
     def setUp(self):
 
         self.test_user = User.objects.create(email="user1@mail.ru", password="12345678",
-                                                  about_me="", nickname="Пользователь")
+                                             about_me="", nickname="Пользователь")
         self.test_user.save()
+        self.token = Token.objects.create(user=self.test_user)
 
+    def tearDown(self) -> None:
+        pass
 
     def test_positive_get_user(self):
         """Проверка на status_code_200 и существование пользователя по email"""
@@ -29,12 +34,12 @@ class UserTests(APITestCase):
 
     def test_positive_put_user(self):
         """Проверка на status_code_201_CREATED и существование пользователя по email"""
+        self.client.force_authenticate(user=self.test_user, token=self.token)# пренудительная аутентификация пользователя
         data = {'about_me': 'Я повар', 'nickname': 'Юрец'}
-        response = self.client.put(f'/api/user/{self.test_user.id}/', data)
+        response = self.client.put(f'/api/user/{self.test_user.id}/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.get().about_me, 'Я повар')
         self.assertEqual(User.objects.get().nickname, 'Юрец')
-
 
     def test_positive_create_user(self):
         """

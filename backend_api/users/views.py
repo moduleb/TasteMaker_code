@@ -1,5 +1,4 @@
-from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 
 from .models import User
@@ -9,7 +8,7 @@ from .serializers import RegistrationSerializer, UserUpdateSerializer, UserSeria
 class UserCreateView(generics.CreateAPIView):
     """Оправляет POST запрос для регистрации пользователя в БД"""
     serializer_class = RegistrationSerializer
-    permission_classes = [AllowAny]  # Создать пользователя могут не авторизированные пользователи
+    permission_classes = [permissions.AllowAny]  # Создать пользователя могут не авторизированные пользователи
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -22,6 +21,11 @@ class UserCreateView(generics.CreateAPIView):
 class UserRUDView(generics.RetrieveUpdateAPIView):
     """Представление модели Пользователя"""
     queryset = User.objects.all()
+
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH']:
