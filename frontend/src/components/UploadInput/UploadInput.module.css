@@ -1,0 +1,46 @@
+.wrapper {
+
+}
+.label {
+    background: #d9d9d9;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+.labelLoaded .image {
+    display: block;
+}
+.labelLoaded .loadBtn {
+    display: none;
+}
+.image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: none;
+}
+.input {
+    display: none;
+    color: black;
+}
+.p {
+    color: #999999;
+    font-family: Inter, sans-serif;
+    margin-top: 10px;
+}
+.loadBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loadBtn span {
+    font-size: 24px;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 14px;
+}
