@@ -1,6 +1,6 @@
 from django.core.validators import RegexValidator, FileExtensionValidator, MinLengthValidator
 from rest_framework import serializers
-from services.services import validate_file_size, generate_filename_upload_foto
+from services.services import validate_file_size, generate_filename_upload_photo
 
 from .models import User
 
@@ -11,7 +11,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             r"^[-a-zA-Z0-9_]{3,}")], write_only=True)  # Минимальное кол-во символов 3(до "@")
     password = serializers.CharField(min_length=8, write_only=True)
     about_me = serializers.CharField(read_only=True)
-    foto = serializers.ImageField(validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']),
+    photo = serializers.ImageField(validators=[FileExtensionValidator(['png', 'jpg', 'jpeg']),
                                               validate_file_size], read_only=True)
     # Поле для пути к фото для аватар "Пользователя"
     # Согласовать папку для загрузки изображений для фото пользователей
@@ -37,7 +37,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = ('about_me',
                   'nickname',
-                  'foto')
+                  'photo')
 
 
 class UserSerializer(serializers.ModelSerializer):

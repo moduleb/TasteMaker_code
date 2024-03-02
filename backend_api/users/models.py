@@ -2,7 +2,7 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator, Regex
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
-from services.services import validate_file_size, generate_filename_upload_foto
+from services.services import validate_file_size, generate_filename_upload_photo
 
 
 class MyUserManager(BaseUserManager):
@@ -49,7 +49,7 @@ class User(AbstractBaseUser):
     # Доп поля для модели "Пользователь"
     about_me = models.CharField(max_length=1000, blank=True, null=True)
     at_registration = models.DateTimeField(auto_now_add=True)  # Дата регистрации "Пользователя"
-    foto = models.ImageField(upload_to=generate_filename_upload_foto, blank=True)
+    photo = models.ImageField(upload_to=generate_filename_upload_photo, blank=True)
     nickname = models.CharField(max_length=30, default='Пользователь', blank=True, null=True)
 
     objects = MyUserManager()
