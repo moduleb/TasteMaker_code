@@ -1,23 +1,85 @@
-import { ChangeEvent } from "react"
+import { useMemo, useState } from "react"
+import s from "./Input.module.css"
+import emailIcon from "../../../assets/icons/email.png"
+import passwordHiddenIcon from "../../../assets/icons/password-hidden.png"
+import passwordIcon from "../../../assets/icons/password.png"
+import { useValidationReturnType } from "../../../hooks/useValidation.ts"
+import { useInputReturnType } from "../../../hooks/useInput.ts"
+import { getErrorMessage } from "../../../utils/getErrorMessageInput.ts"
 
-type Props = {
+interface Props extends useValidationReturnType, useInputReturnType {
   type: "text" | "password" | "email"
-  handler: (value: string) => void
-  value: string
   placeholder?: string
+  name?: string
 }
-export const Input = ({ type, handler, value, placeholder }: Props) => {
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handler(e.target.value)
+
+const icons = {
+  email: emailIcon,
+  password: passwordIcon,
+  passwordHidden: passwordHiddenIcon,
+  text: null,
+}
+
+export const Input = ({
+  type,
+  onChange,
+  onBlur,
+  value,
+  placeholder,
+  name,
+  isEmpty,
+  maxLengthError,
+  minLengthError,
+  passwordError,
+  emailError,
+  dirty,
+}: Props) => {
+  const [iconSrc, setIconSrc] = useState(icons[type])
+  const [inputType, setInputType] = useState(type)
+
+  const iconClickHandler = () => {
+    if (type !== "password") return
+    if (inputType === "password") {
+      setIconSrc(passwordHiddenIcon)
+      setInputType("text")
+    } else if (inputType === "text") {
+      setIconSrc(passwordIcon)
+      setInputType("password")
+    }
   }
+  const errorMessage = useMemo(
+    () =>
+      getErrorMessage({
+        dirty,
+        isEmpty,
+        maxLengthError,
+        minLengthError,
+        passwordError,
+        emailError,
+      }),
+    [dirty, isEmpty, maxLengthError, minLengthError, passwordError, emailError],
+  )
+
   return (
     <>
-      <input
-        type={type}
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-      />
+      <label className={s.label}>
+        <input
+          className={`${s.input} ${!errorMessage ? "" : s.error}`}
+          type={inputType}
+          onChange={onChange}
+          value={value}
+          placeholder={placeholder}
+          name={name || type}
+          onBlur={onBlur}
+        />
+        <img
+          src={iconSrc || ""}
+          className={s.icon}
+          alt="icon"
+          onClick={iconClickHandler}
+        />
+        <span className={s.errorMessage}>{errorMessage}</span>
+      </label>
     </>
   )
 }

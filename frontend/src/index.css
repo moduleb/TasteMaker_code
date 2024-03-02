@@ -4,7 +4,9 @@ html {
     -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-
+* {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -80,6 +82,7 @@ sup {
 
 img {
     border-style: none;
+    max-width: 100%;
 }
 
 button,
