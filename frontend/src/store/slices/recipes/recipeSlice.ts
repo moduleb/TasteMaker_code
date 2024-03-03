@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addRecipe, deleteRecipe } from "./recipeActions"
+import { addRecipe, deleteRecipe, getRecipe } from "./recipeActions"
 
 export interface IRecipe {
   id: number | null
@@ -11,7 +11,7 @@ export interface IRecipe {
   image: string | null
 }
 
-const initialRecipeState: IRecipe = {
+export const initialRecipeState: IRecipe = {
   id: null,
   name: null,
   description: null,
@@ -27,10 +27,39 @@ const recipeSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(addRecipe.fulfilled, (state, action) => {
-      console.log(action.payload)
+      const gotRecipe = action.payload as unknown as IRecipe
+
+      state.cooking_instructions = gotRecipe.cooking_instructions
+
+      state.description = gotRecipe.description
+
+      state.cooking_time_in_minutes = gotRecipe.cooking_time_in_minutes
+
+      state.image = gotRecipe.image
+
+      state.ingredients = gotRecipe.ingredients
+
+      state.name = gotRecipe.name
     })
     builder.addCase(deleteRecipe.fulfilled, (state, action) => {
       console.log(action.payload)
+    })
+    builder.addCase(getRecipe.fulfilled, (state, action) => {
+      const gotRecipe = action.payload as unknown as IRecipe
+
+      state.cooking_instructions = gotRecipe.cooking_instructions
+
+      state.description = gotRecipe.description
+
+      state.cooking_time_in_minutes = gotRecipe.cooking_time_in_minutes
+
+      state.image = gotRecipe.image
+
+      state.ingredients = gotRecipe.ingredients
+
+      state.name = gotRecipe.name
+
+      //console.log(state)
     })
   },
 })
