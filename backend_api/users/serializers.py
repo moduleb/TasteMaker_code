@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator, FileExtensionValidator, MinLengthValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 from rest_framework import serializers
 from services.services import validate_file_size, generate_filename_upload_photo
 
@@ -15,7 +15,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                                               validate_file_size], read_only=True)
     # Поле для пути к фото для аватар "Пользователя"
     # Согласовать папку для загрузки изображений для фото пользователей
-    nickname = serializers.CharField(min_length=3, read_only=True)
+    nickname = serializers.CharField(min_length=1, read_only=True)
 
     class Meta:
         model = User

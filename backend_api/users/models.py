@@ -47,10 +47,10 @@ class User(AbstractBaseUser):
     last_login = None
 
     # Доп поля для модели "Пользователь"
-    about_me = models.CharField(max_length=1000, blank=True, null=True)
+    about_me = models.CharField(max_length=1500, blank=True,)
     at_registration = models.DateTimeField(auto_now_add=True)  # Дата регистрации "Пользователя"
     photo = models.ImageField(upload_to=generate_filename_upload_photo, blank=True)
-    nickname = models.CharField(max_length=30, default='Пользователь', blank=True, null=True)
+    nickname = models.CharField(max_length=30, default='Пользователь', blank=False)
 
     objects = MyUserManager()
 
