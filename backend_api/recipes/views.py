@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, parsers, status
 from rest_framework.decorators import api_view, action
@@ -10,7 +11,14 @@ from .serializers import RecipeSerializer
 
 
 
-
+@extend_schema_view(
+    create=extend_schema(summary='Создание рецепта', tags=['Рецепты']),
+    list=extend_schema(summary='Получение всех рецептов', tags=['Рецепты']),
+    retrieve=extend_schema(summary='Получение одного рецептов', tags=['Рецепты']),
+    update=extend_schema(summary='Полное редактирование рецепта', tags=['Рецепты']),
+    partial_update=extend_schema(summary='Частичное редактирование рецепта', tags=['Рецепты']),
+    destroy=extend_schema(summary='Удаление рецепта', tags=['Рецепты']),
+)
 class RecipeModelViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
