@@ -2,6 +2,8 @@
     max-width: 100%;
     width: 100%;
     position: relative;
+    margin-bottom: 30px;
+    display: block;
 }
 .icon {
     position: absolute;
@@ -19,14 +21,16 @@
     border: 1px solid #4E4E4E;
     color: #4E4E4E;
 }
-.errorMessage {
-    color: #E05F5F;
+.message {
     position: absolute;
     font-size: 12px;
     line-height: 24px;
     bottom: -25px;
     left: 18px;
 }
-.error {
+input.error {
     border-color: #E05F5F;
+}
+span.error {
+    color: #E05F5F;
 }

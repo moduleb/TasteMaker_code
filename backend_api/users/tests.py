@@ -1,8 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APITestCase, APIClient
-
+from rest_framework.test import APITestCase
 
 from users.models import User
 
@@ -65,6 +64,7 @@ class UserTests(APITestCase):
         """
         Проверка email на количество символов до @ при создании пользователя
         """
+
         url = reverse('register')
         data = {'email': 'us@mail.ru',
                 'password': '12345678'}
@@ -85,6 +85,7 @@ class UserTests(APITestCase):
         """
         Проверка пароля на минимальное количество(8) знаков при создании пользователя
         """
+
         url = reverse('register')
         data = {'email': 'user2@mail.ru',
                 'password': '12345678'}

@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 
@@ -5,12 +6,18 @@ from .models import User
 from .serializers import RegistrationSerializer, UserUpdateSerializer, UserSerializer
 
 
+@extend_schema_view(
+    post=extend_schema(summary='Регистрация пользователя', tags=['Аутентификация & Авторизация'])
+)
 class UserCreateView(generics.CreateAPIView):
     """Оправляет POST запрос для регистрации пользователя в БД"""
     serializer_class = RegistrationSerializer
     permission_classes = [permissions.AllowAny]  # Создать пользователя могут не авторизированные пользователи
 
+
+
     def post(self, request, *args, **kwargs):
+        """Метод возвращает статус POST запроса"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

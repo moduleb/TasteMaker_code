@@ -24,6 +24,8 @@ export const useValidation = (value: string, validations: Validations) => {
             setMinLengthError(
               `Поле должно содержать больше ${validationValue} символов`,
             )
+          } else {
+            setMinLengthError("")
           }
           break
         case "maxLength":
@@ -31,6 +33,8 @@ export const useValidation = (value: string, validations: Validations) => {
             setMaxLengthError(
               `Поле должно содержать меньше ${validationValue} символов`,
             )
+          } else {
+            setMaxLengthError("")
           }
           break
         case "isEmpty":

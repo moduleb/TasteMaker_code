@@ -39,7 +39,7 @@ INSTALLED_APPS += [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'rest_framework',
-    'drf_yasg',  # swagger docs
+    'drf_spectacular',# swagger docs
 ]
 
 # apps
@@ -110,7 +110,23 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+#############################
+#       DRF-SPECTACULAR     #
+#############################
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': "TasteMaker API",
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'DESCRIPTION': 'Предоставить пользователям удобный доступ к рецептам '
+                   '(осуществлять поиск, добавлять в избранное, просматривать избранное, '
+                   'создавать списки рецептов по тематикам и просматривать свои списки) '
+                   'и дать возможность размещать свои рецепты.'
+}
+
 AUTH_USER_MODEL = "users.User"
 
 SIMPLE_JWT = {
