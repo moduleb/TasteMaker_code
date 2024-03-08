@@ -10,7 +10,7 @@ import { Form } from "../../components/UI/Form/Form.tsx"
 import s from "./AuthForm.module.css"
 import { Input } from "../../components/UI/Input/Input.tsx"
 import { Button } from "../../components/UI/Button/Button.tsx"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { clearErrorMessage } from "../../store/slices/authorization/userSlice.ts"
 
 interface Props {
@@ -21,6 +21,9 @@ export const AuthForm = ({ formType }: Props) => {
   const serverError = useAppSelector((state) => state.user.errorMessage)
   const { isAuth } = useAuth()
   const location = useLocation()
+  const passwordRef = useRef<HTMLInputElement | null>(null)
+  const emailRef = useRef<HTMLInputElement | null>(null)
+  const submitBtnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
     dispatch(clearErrorMessage())
@@ -34,13 +37,21 @@ export const AuthForm = ({ formType }: Props) => {
       if (formType === "authorization") {
         dispatch(loginByEmail({ email, password }))
       }
+    } else {
+      passwordRef.current?.focus()
+      emailRef.current?.focus()
+      submitBtnRef.current?.focus()
     }
   }
   const passwordInput = useInput("", {
     isPassword: formType === "authorization" ? undefined : true,
     isEmpty: true,
   })
-  const emailInput = useInput("", { isEmail: true, isEmpty: true })
+  const emailInput = useInput("", {
+    isEmail: true,
+    isEmpty: true,
+    maxLength: 100,
+  })
   return isAuth ? (
     <Navigate to="/" />
   ) : (
@@ -54,9 +65,19 @@ export const AuthForm = ({ formType }: Props) => {
         handleSubmit={() => onSubmit(emailInput.value, passwordInput.value)}
         styles={s.form}
       >
-        <Input type="email" placeholder="Email" {...emailInput} />
-        <Input type="password" placeholder="Пароль" {...passwordInput} />
-        <Button type="submit">
+        <Input
+          type="email"
+          placeholder="Email"
+          {...emailInput}
+          ref={emailRef}
+        />
+        <Input
+          type="password"
+          placeholder="Пароль"
+          {...passwordInput}
+          ref={passwordRef}
+        />
+        <Button type="submit" ref={submitBtnRef}>
           {formType === "authorization" ? "Войти" : "Зарегистрироваться"}
         </Button>
         {serverError && <div>{serverError}</div>}
