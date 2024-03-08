@@ -1,5 +1,5 @@
 import { useAuth } from "../../hooks/useAuth.ts"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Textarea } from "../../components/UI/Textarea/Textarea.tsx"
 import { Input } from "../../components/UI/Input/Input.tsx"
 import { useInput } from "../../hooks/useInput.ts"
@@ -9,7 +9,6 @@ import { UploadInput } from "../../components/UploadInput/UploadInput.tsx"
 import { FormEventHandler, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks.ts"
 import FormData from "form-data"
-import { IRecipe } from "../../store/slices/recipes/recipeSlice.ts"
 import { addRecipe } from "../../store/slices/recipes/recipeActions.ts"
 
 export const NewRecipePage = () => {
@@ -23,6 +22,7 @@ export const NewRecipePage = () => {
   const [imageFile, setImageFile] = useState<null | File>(null)
   const recipesSteps = useInput("", { maxLength: 1500, isEmpty: true })
   const [error, setError] = useState("")
+  const navigate = useNavigate()
 
   const uploadFile = (file: File) => {
     if (file) {
@@ -47,6 +47,7 @@ export const NewRecipePage = () => {
       data.append("image", imageFile)
       data.append("cooking_time_in_minutes", 123)
       dispatch(addRecipe(data))
+      navigate("/")
     } else {
       setError("ошибка")
     }
