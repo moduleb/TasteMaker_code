@@ -1,0 +1,72 @@
+[
+ {
+    "model": "recipes.measure",
+    "pk": 1,
+    "fields": {
+      "name": "мл."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 2,
+    "fields": {
+      "name": "л."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 3,
+    "fields": {
+      "name": "гр."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 4,
+    "fields": {
+      "name": "кг."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 5,
+    "fields": {
+      "name": "шт."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 6,
+    "fields": {
+      "name": "ч.л."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 7,
+    "fields": {
+      "name": "ст.л."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 8,
+    "fields": {
+      "name": "щеп."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 9,
+    "fields": {
+      "name": "ст."
+    }
+ },
+ {
+    "model": "recipes.measure",
+    "pk": 10,
+    "fields": {
+      "name": "упак."
+    }
+ }
+]
