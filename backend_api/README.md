@@ -8,4 +8,17 @@
 + [Установка и запуск](docs/installation.md)
 + [Пользователи](docs/users.md)
 + [Токены](docs/tokens.md)
-+ [Рецепты](docs/recipes.md)
+
+### Рецепты
+  + [Создать рецепт](./docs/recipes.md#create_recipe)
+  + [Отредактировать рецепт](./docs/recipes.md#edit_recipe)
+  + [Частично отредактировать рецепт](./docs/recipes.md#partial_edit_recipe)
+  + [Получить информацию об одном рецепте](./docs/recipes.md#view_recipe)
+  + [Просмотр информацию о всех рецептах](./docs/recipes.md#view_all_recipes)
+  + [Удалить рецепт](./docs/recipes.md#delete_recipe)
+
+### Ингредиенты
++ [Получить список всех ингредиентов](./docs/recipes.md#get_all_ingredients)
+
+### Меры веса и объема
++ [Получить список всех единиц измерения](./docs/recipes.md#get_all_measures)
