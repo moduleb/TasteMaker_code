@@ -101,12 +101,12 @@
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
   "cooking_time": "PT1H30M",
-  "image": "avatar.jpg",
+  "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
       "order": 1,
       "text": "почистить",
-      "image": "photo12.jpg"
+      "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png"
     },
     {
       "order": 2,
@@ -209,12 +209,12 @@
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
   "cooking_time": "PT1H30M",
-  "image": "avatar.jpg",
+  "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
       "order": 1,
       "text": "почистить",
-      "image": "photo12.jpg"
+      "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png"
     },
     {
       "order": 2,
@@ -260,12 +260,12 @@
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
   "cooking_time": "PT1H30M",
-  "image": "avatar.jpg",
+  "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
       "order": 1,
       "text": "почистить",
-      "image": "photo12.jpg"
+      "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png"
     },
     {
       "order": 2,
@@ -294,12 +294,12 @@
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
   "cooking_time": "PT1H30M",
-  "image": "avatar.jpg",
+  "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
       "order": 1,
       "text": "почистить",
-      "image": "photo12.jpg"
+      "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png"
     },
     {
       "order": 2,
