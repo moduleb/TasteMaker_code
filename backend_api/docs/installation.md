@@ -35,9 +35,9 @@ python3 manage.py loaddata fixture-ingredients.json fixture-measures.json
 ```bash
 python manage.py runserver
 ```
-Открыть приложение в браузере по адресу **localhost:8000**
+Открыть приложение в браузере по адресу [localhost:8000](http://127.0.0.1:8000/api/schema/swagger-ui/)
 
->При запущенном сервере доступна интерактивная документация Swagger [http://127.0.0.1:8000/api/schema/swagger-ui/]http://127.0.0.1:8000/api/schema/swagger-ui/)
+>При запущенном сервере доступна интерактивная документация Swagger [http://127.0.0.1:8000/api/schema/swagger-ui/](http://127.0.0.1:8000/api/schema/swagger-ui/)
 
 
 ## Запуск приложения через Docker
