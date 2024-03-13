@@ -8,8 +8,13 @@
 + [Установка и запуск](docs/installation.md)
 + [Пользователи](docs/users.md)
 + [Токены](docs/tokens.md)
+    + [Получение access-токена](./docs/tokens.md#get-access_token)
+    + [Проверка access-токена](./docs/tokens.md#check-access_token)
+    + [Использование access-токена](./docs/tokens.md#use-access_token)
+    + [Время жизни токенов](./docs/tokens.md#lifetime)
+    + [Использование refresh токена](./docs/tokens.md#use-refresh_token)
 
-### Рецепты
+### [Рецепты](./docs/recipes.md)
   + [Создать рецепт](./docs/recipes.md#create_recipe)
   + [Отредактировать рецепт](./docs/recipes.md#edit_recipe)
   + [Частично отредактировать рецепт](./docs/recipes.md#partial_edit_recipe)
