@@ -1,20 +1,19 @@
 import { useAuth } from "../../hooks/useAuth.ts"
-import { Link, useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { Textarea } from "../../components/UI/Textarea/Textarea.tsx"
 import { Input } from "../../components/UI/Input/Input.tsx"
 import { useInput } from "../../hooks/useInput.ts"
 import s from "./NewRecipePage.module.css"
 import { Button } from "../../components/UI/Button/Button.tsx"
 import { UploadInput } from "../../components/UploadInput/UploadInput.tsx"
-import { FormEventHandler, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks.ts"
+import { FormEventHandler, useRef, useState } from "react"
+import { useAppDispatch } from "../../hooks/reduxHooks.ts"
 import FormData from "form-data"
 import { addRecipe } from "../../store/slices/recipes/recipeActions.ts"
 
 export const NewRecipePage = () => {
   const { isAuth } = useAuth()
   const dispatch = useAppDispatch()
-  const recipe = useAppSelector((state) => state.recipe)
 
   const recipeName = useInput("", { isEmpty: true, maxLength: 150 })
   const recipeDescription = useInput("", { maxLength: 1500 })
@@ -22,7 +21,13 @@ export const NewRecipePage = () => {
   const [imageFile, setImageFile] = useState<null | File>(null)
   const recipesSteps = useInput("", { maxLength: 1500, isEmpty: true })
   const [error, setError] = useState("")
-  const navigate = useNavigate()
+
+  const recipeNameRef = useRef<HTMLInputElement | null>(null)
+  const recipeDescriptionRef = useRef<HTMLTextAreaElement | null>(null)
+  const uploadInputRef = useRef<HTMLInputElement | null>(null)
+  const recipeIngredientsRef = useRef<HTMLTextAreaElement | null>(null)
+  const recipesStepsRef = useRef<HTMLTextAreaElement | null>(null)
+  const submitBtnRef = useRef<HTMLButtonElement>(null)
 
   const uploadFile = (file: File) => {
     if (file) {
@@ -49,22 +54,35 @@ export const NewRecipePage = () => {
       dispatch(addRecipe(data))
       navigate("/")
     } else {
-      setError("ошибка")
+      // setError("ошибка")
+      recipeNameRef.current?.focus()
+      recipesStepsRef.current?.focus()
+      recipeIngredientsRef.current?.focus()
+      submitBtnRef.current?.focus()
+      if (!recipeName.validInput) {
+        console.log(1)
+        recipeNameRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        })
+      } else if (!recipesSteps.validInput) {
+        console.log(2)
+        recipesStepsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      } else if (!recipeIngredients.validInput) {
+        console.log(3)
+        recipeIngredientsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      }
     }
   }
 
   return !isAuth ? (
-    <div>
-      Для того, чтобы добавить рецепт вам нужно{" "}
-      <Link to="/register" style={{ textDecoration: "underline" }}>
-        зарегистрироваться
-      </Link>
-      . Или{" "}
-      <Link to="/login" style={{ textDecoration: "underline" }}>
-        авторизуйтесь
-      </Link>
-      , если уже есть аккаунт{" "}
-    </div>
+    <Navigate to="/login" />
   ) : (
     <div>
       <h2>Добавление нового рецепта</h2>
@@ -82,6 +100,7 @@ export const NewRecipePage = () => {
             {...recipeName}
             placeholder="Введите название рецепта"
             allowedSymbols={150}
+            ref={recipeNameRef}
           />
         </div>
         <div className={s.formBlock}>
@@ -91,10 +110,11 @@ export const NewRecipePage = () => {
             allowedSymbols={1500}
             placeholder="Введите описание блюда"
             height={335}
+            ref={recipeDescriptionRef}
           />
         </div>
         <div className={s.formBlock}>
-          <UploadInput uploadFile={uploadFile} />
+          <UploadInput uploadFile={uploadFile} ref={uploadInputRef} />
         </div>
         <div className={s.formBlock}>
           <h3 className={s.title}>
@@ -106,6 +126,7 @@ export const NewRecipePage = () => {
             placeholder="Введите список ингредиентов и их количество"
             height={335}
             required={true}
+            ref={recipeIngredientsRef}
           />
         </div>
 
@@ -114,15 +135,18 @@ export const NewRecipePage = () => {
         </h3>
         <Textarea
           {...recipesSteps}
+          ref={recipesStepsRef}
           allowedSymbols={1500}
+          required={true}
           height={640}
           placeholder="Введите шаги приготовления блюда"
         />
 
-        <Button type="submit">Опубликовать</Button>
+        <Button type="submit" ref={submitBtnRef}>
+          Опубликовать
+        </Button>
       </form>
       {error}
-      {recipe && recipe.name}
     </div>
   )
 }
