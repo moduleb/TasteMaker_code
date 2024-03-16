@@ -16,13 +16,22 @@ export const UploadInput = forwardRef<HTMLInputElement, Props>(
   ({ uploadFile }: Props, ref) => {
     const preview: MutableRefObject<null | HTMLImageElement> = useRef(null)
     const [isLoaded, setIsLoaded] = useState(false)
+    const [error, setError] = useState("")
 
     const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
       if (e.target.files) {
         const image = e.target.files[0]
-        if (image.size > 2e6) {
+        if (image.type !== "image/png" && image.type !== "image/jpeg") {
+          setError("Разрешается загружать фото в JPG или PNG форматах")
           return
         }
+        if (image.size > 2e6) {
+          setError("Размер фотографии не должен превышать 2 мб")
+          if (preview.current) preview.current.src = ""
+          setIsLoaded(false)
+          return
+        }
+        setError("")
         const reader = new FileReader()
         reader.onload = () => {
           setIsLoaded(true)
@@ -56,6 +65,7 @@ export const UploadInput = forwardRef<HTMLInputElement, Props>(
           </div>
           <img src="" className={s.image} ref={preview} alt="" />
         </label>
+        {error && <p className={s.error + " " + s.p}>{error}</p>}
         <p className={s.p}>
           <span className="star">*</span>Формат фотографии должен быть JPEG,PNG,
           размер - до 2 МБ

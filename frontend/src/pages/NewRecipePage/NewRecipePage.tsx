@@ -14,13 +14,14 @@ import { addRecipe } from "../../store/slices/recipes/recipeActions.ts"
 export const NewRecipePage = () => {
   const { isAuth } = useAuth()
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const recipeName = useInput("", { isEmpty: true, maxLength: 150 })
   const recipeDescription = useInput("", { maxLength: 1500 })
   const recipeIngredients = useInput("", { maxLength: 1500, isEmpty: true })
   const [imageFile, setImageFile] = useState<null | File>(null)
   const recipesSteps = useInput("", { maxLength: 1500, isEmpty: true })
-  const [error, setError] = useState("")
+  const [isImageLoaded, setIsImageLoaded] = useState(true)
 
   const recipeNameRef = useRef<HTMLInputElement | null>(null)
   const recipeDescriptionRef = useRef<HTMLTextAreaElement | null>(null)
@@ -28,6 +29,7 @@ export const NewRecipePage = () => {
   const recipeIngredientsRef = useRef<HTMLTextAreaElement | null>(null)
   const recipesStepsRef = useRef<HTMLTextAreaElement | null>(null)
   const submitBtnRef = useRef<HTMLButtonElement>(null)
+  const uploadInputWrap = useRef<HTMLDivElement | null>(null)
 
   const uploadFile = (file: File) => {
     if (file) {
@@ -43,7 +45,7 @@ export const NewRecipePage = () => {
       recipeIngredients.validInput &&
       imageFile
     ) {
-      setError("")
+      setIsImageLoaded(true)
       const data = new FormData()
       data.append("name", recipeName.value)
       data.append("description", recipeDescription.value)
@@ -54,34 +56,39 @@ export const NewRecipePage = () => {
       dispatch(addRecipe(data))
       navigate("/")
     } else {
-      // setError("ошибка")
       recipeNameRef.current?.focus()
       recipesStepsRef.current?.focus()
       recipeIngredientsRef.current?.focus()
       submitBtnRef.current?.focus()
       if (!recipeName.validInput) {
-        console.log(1)
         recipeNameRef.current?.scrollIntoView({
           behavior: "smooth",
           block: "start",
         })
       } else if (!recipesSteps.validInput) {
-        console.log(2)
         recipesStepsRef.current?.scrollIntoView({
           behavior: "smooth",
           block: "center",
         })
       } else if (!recipeIngredients.validInput) {
-        console.log(3)
         recipeIngredientsRef.current?.scrollIntoView({
           behavior: "smooth",
           block: "center",
         })
+      } else if (!imageFile) {
+        console.log(1)
+        uploadInputWrap.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      }
+      if (!imageFile) {
+        setIsImageLoaded(false)
       }
     }
   }
 
-  return !isAuth ? (
+  return !localStorage.getItem("access") ? (
     <Navigate to="/login" />
   ) : (
     <div>
@@ -113,8 +120,9 @@ export const NewRecipePage = () => {
             ref={recipeDescriptionRef}
           />
         </div>
-        <div className={s.formBlock}>
+        <div className={s.formBlock} ref={uploadInputWrap}>
           <UploadInput uploadFile={uploadFile} ref={uploadInputRef} />
+          {!isImageLoaded && <p>Фото обязательно!</p>}
         </div>
         <div className={s.formBlock}>
           <h3 className={s.title}>
@@ -146,7 +154,6 @@ export const NewRecipePage = () => {
           Опубликовать
         </Button>
       </form>
-      {error}
     </div>
   )
 }
