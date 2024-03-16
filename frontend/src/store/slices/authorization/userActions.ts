@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { $api } from "../../../http"
+import { $api, $apiWithoutToken } from "../../../http"
 import { AuthResponse } from "../../../models/authorization.ts"
 import { AxiosError } from "axios"
 import { IUser } from "./userSlice.ts"
@@ -21,7 +21,7 @@ export const registerByEmail = createAsyncThunk<
   "registerByEmail",
   async ({ email, password }: requestArgs, { rejectWithValue }) => {
     try {
-      await $api.post("/register", {
+      await $apiWithoutToken.post("/register", {
         email,
         password,
       })

@@ -15,6 +15,11 @@ export const $api = axios.create({
   baseURL: API_URL,
 })
 
+export const $apiWithoutToken = axios.create({
+  withCredentials: true,
+  baseURL: API_URL,
+})
+
 $api.interceptors.request.use((config) => {
   const access = localStorage.getItem("access")
   if (access) {
