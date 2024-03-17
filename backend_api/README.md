@@ -27,6 +27,7 @@
 
 ### Ингредиенты
 + [Получить список всех ингредиентов](./docs/recipes.md#get_all_ingredients)
++ [Получить список отфильтрованных ингредиентов](./docs/recipes.md#get_filtered_ingredients")
 
 ### Меры веса и объема
 + [Получить список всех единиц измерения](./docs/recipes.md#get_all_measures)

@@ -9,6 +9,7 @@
 
 ### Ингредиенты
 + [Получить список всех ингредиентов](#get_all_ingredients)
++ [Получить список отфильтрованных ингредиентов](#get_filtered_ingredients")
 
 ### Меры веса и объема
 + [Получить список всех единиц измерения](#get_all_measures)
@@ -100,7 +101,7 @@
   "name": "Название",
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
-  "cooking_time": "PT1H30M",
+  "cooking_time": "01:30:00",
   "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
@@ -208,7 +209,7 @@
   "name": "Название",
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
-  "cooking_time": "PT1H30M",
+  "cooking_time": "01:30:00",
   "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
@@ -259,7 +260,7 @@
   "name": "Название",
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
-  "cooking_time": "PT1H30M",
+  "cooking_time": "01:30:00",
   "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
@@ -293,7 +294,7 @@
   "name": "Название",
   "description": "Описание",
   "cooking_instructions": "Инструкция по приготовлению",
-  "cooking_time": "PT1H30M",
+  "cooking_time": "01:30:00",
   "image": "http://127.0.0.1:8000/media/images/b576fc4f102d4e31b75d91a6633f3f87.png",
   "steps": [
     {
@@ -375,6 +376,28 @@
 
 ---
 
+<a name="get_filtered_ingredients"></a>
+### Получить список отфильтрованных ингредиентов
+
+>Поиск осуществляется по началу имени ингредиента и не зависит от регистра.
+
+**Запрос**
+
+`GET http://127.0.0.1:8000/api/recipes/ingredients/{СИМВОЛЫ_ДЛЯ_ПОИСКА}`  
+Например `GET http://127.0.0.1:8000/api/recipes/ingredients/ля`  
+
+**Ответ**
+
+```json
+[
+  "Лягушачьи лапки"
+]
+```
+
+**Ошибки**
+* ...
+
+---
 
 ## Меры веса и объема
 

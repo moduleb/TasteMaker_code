@@ -22,8 +22,9 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ['name']
 
     def validate(self, data):
+        """Проверяем существование ингредиента с таким 'name' в бд."""
+        ingredient_name = data.get("name")
         try:
-            ingredient_name = data.get("name")
             ingredient_obj = Ingredient.objects.get(name=ingredient_name)
             return ingredient_obj
         except Exception:
@@ -44,8 +45,9 @@ class MeasureSerializer(serializers.ModelSerializer):
         fields = ['name']
 
     def validate(self, data):
+        """Проверяем существование measure с таким 'name' в бд."""
+        measure_name = data.get("name")
         try:
-            measure_name = data.get("name")
             measure_obj = Measure.objects.get(name=measure_name)
             return measure_obj
         except Exception:
@@ -76,6 +78,11 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     measure = MeasureSerializer()
 
     def to_internal_value(self, data):
+        """
+        Добавляем ключи 'name' для правильной валидации
+        Название ингредиента должно быть передано обязательно, 
+        а меру можно опустить в случае частичного редактирования
+        """
         if data.get("name"):
             ingredient = data.pop('name')
             data['ingredient'] = {"name": ingredient}
@@ -114,17 +121,22 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         steps_data = validated_data.pop('steps')
         ingredients_data = validated_data.pop('ingredients')
-
+        
+        # создаем новый рецепт        
         recipe = super().create(validated_data)
+        
+        # создаем все шаги
         for step_data in steps_data:
             Step.objects.create(recipe=recipe, **step_data)
-
+        
+        """получаем из бд сущности 'ingredients' and 'measure'
+        в сериалайзере уже проверили что они существуют"""
         for ingredient_data in ingredients_data:
             measure_name = ingredient_data.get("measure").get("name")
             measure = Measure.objects.get(name=measure_name)
             ingredient_name = ingredient_data.get("ingredient").get("name")
             ingredient = Ingredient.objects.get(name=ingredient_name)
-
+            
             RecipeIngredient.objects.create(
                 recipe=recipe,
                 amount=ingredient_data.get('amount'),
@@ -134,13 +146,24 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         return recipe
 
+
     def update(self, instance: Recipe, validated_data):
+        # проверяем, это полное обновление или частичное (PUT или PATCH)
         is_partial = self.partial
+        
+        # список всннех шагов данного рецепта, которые есть в бд
         existed_steps_list = Step.objects.filter(recipe=instance)
+        
+        # обновленный список шагов
         new_steps_list = []
+
         if validated_data.get('steps'):
             steps_data = validated_data.pop('steps')
 
+            """ищем шаги у заданного рецепта с переданными номерами. 
+            если таких шагов нет, создаем,
+            если есть, обновляем
+            при отсутвии поля 'order' будет ошибка валидации"""
             for step_data in steps_data:
                 order = step_data.get('order')
                 if not order:
@@ -152,7 +175,9 @@ class RecipeSerializer(serializers.ModelSerializer):
                     setattr(step, attr, value)
                 step.save()
                 new_steps_list.append(step)
-
+        
+        """при полном обновлении
+        если какой то шаг вообще не передан в запросе, а в базе данных он есть, то удаляем"""
         if not is_partial:
             steps_for_delete = []
             for item in existed_steps_list:
@@ -166,16 +191,21 @@ class RecipeSerializer(serializers.ModelSerializer):
             ingredients_data = validated_data.pop('ingredients')
             for ingredient_data in ingredients_data:
 
+                # заменяем сущностями информацию об ингредиентах
                 ingredient_name = ingredient_data.get("ingredient").get("name")
                 ingredient = Ingredient.objects.get(name=ingredient_name)
                 ingredient_data['ingredient'] = ingredient
 
+                # заменяем сущностями информацию о мерах (проверка нужно для частичного обновления, там можнет не быть мер)
                 if 'measure' in ingredient_data:
                     measure_name = ingredient_data.get("measure").get("name")
                     measure = Measure.objects.get(name=measure_name)
                     ingredient_data['measure'] = measure
 
+            # список ингредиентав данного рецепта, которые есть в бд
             existed_ingredients_list = RecipeIngredient.objects.filter(recipe=instance)
+            
+            # обновленный список новых ингредиентов
             new_ingredients_list = []
 
             for ingredient_data in ingredients_data:
@@ -215,6 +245,8 @@ class RecipeSerializer(serializers.ModelSerializer):
                     new_ingredients_list.append(recipe_ingredient)
                     recipe_ingredient.save()
 
+            """при полном обновлении
+            если какой то ингредиент вообще не передан в запросе, а в базе данных он есть, то удаляем"""
             if not is_partial:
                 ingredients_for_delete = []
 
@@ -223,7 +255,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                         ingredients_for_delete.append(item)
                 for item in ingredients_for_delete:
                     item.delete()
-
+        
         instance = super().update(instance, validated_data)
         return instance
 

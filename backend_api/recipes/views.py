@@ -6,9 +6,11 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework import viewsets, parsers, status
 from rest_framework.decorators import api_view, action
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.response import Response
 
+from .filters import IngredientFilter
 from .models import Recipe, Ingredient, Measure
 from .serializers import FormDataSerializer, RecipeSerializer, IngredientSerializer, MeasureSerializer
 
@@ -16,6 +18,8 @@ from .serializers import FormDataSerializer, RecipeSerializer, IngredientSeriali
 class IngredientModelView(generics.ListAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = IngredientFilter
 
 
 class MeasureModelView(generics.ListAPIView):
