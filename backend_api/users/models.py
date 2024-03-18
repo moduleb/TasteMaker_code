@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator, FileExtensionValidator
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.utils.translation import gettext_lazy as _
 
 from services.services import validate_file_size, generate_filename_upload_photo
 
@@ -32,11 +33,12 @@ class MyUserManager(BaseUserManager):
             password=password,
         )
         user.is_admin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=100,
                               verbose_name="email address",
                               unique=True,
@@ -44,6 +46,8 @@ class User(AbstractBaseUser):
     password = models.CharField(max_length=64)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+
+
     last_login = None
 
     # Доп поля для модели "Пользователь"
@@ -58,24 +62,24 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = []
 
 
-def __str__(self):
-    return self.email
+    def __str__(self):
+        return self.email
 
 
-def has_perm(self, perm, obj=None):
-    "Does the user have a specific permission?"
-    # Simplest possible answer: Yes, always
-    return True
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
 
 
-def has_module_perms(self, app_label):
-    "Does the user have permissions to view the app `app_label`?"
-    # Simplest possible answer: Yes, always
-    return True
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
 
 
-@property
-def is_staff(self):
-    "Is the user a member of staff?"
-    # Simplest possible answer: All admins are staff
-    return self.is_admin
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
